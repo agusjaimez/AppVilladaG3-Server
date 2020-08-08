@@ -42,6 +42,12 @@ class Directivo(models.Model):
     username = models.CharField(max_length=30)
     password = models.CharField(max_length=30)
 
+class Preceptor(models.Model):
+    curso = models.ManyToManyField(Curso, on_delete=models.SET_NULL)
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    dni = models.CharField(max_length=30)
+
 class Comunicado(models.Model):
     fecha = models.dateField()
     remitente = models.CharField(max_length=30)
@@ -54,7 +60,6 @@ class Alumno(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     dni = models.CharField(max_length=30)
-    delegado = models.BooleanField(default=False)
 
 class PadreTutor(models.Model):
     alumno = models.ForeignKey(Alumno, on_delete=models.CASCADE)
