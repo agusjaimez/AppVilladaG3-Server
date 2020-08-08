@@ -15,8 +15,15 @@ class Comunicado(models.Model):
     directivo = models.ForeignKey(Directivo, on_delete=models.CASCADE)
     mensaje = models.TextField()
 
+class Alumno(models.Model):
+    curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    dni = models.CharField(max_length=30)
+    delegado = models.BooleanField(default=False)
+
 class PadreTutor(models.Model):
-    alumno_id = models.ForeignKey(Alumno, on_delete=models.CASCADE)
+    alumno = models.ForeignKey(Alumno, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     email = models.EmailField(max_length=50)
