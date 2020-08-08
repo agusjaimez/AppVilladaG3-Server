@@ -33,7 +33,7 @@ class Curso(models.Model):
         septimoB = '7B', _('Septimo B')
         septimoC = '7C', _('Septimo C')
 
-    curso = models.CharField(max_length=2, choices=Cursos.choices, default=Cursos.primeroA,)
+    curso = models.CharField(max_length=2, choices=Cursos.choices, default=Cursos.primeroA)
 
 class Directivo(models.Model):
     first_name = models.CharField(max_length=30)
@@ -69,3 +69,14 @@ class PadreTutor(models.Model):
     username = models.CharField(max_length=30)
     password = models.CharField(max_length=30)
     delegado = models.BooleanField(default=False)
+
+class Formulario(models.Model):
+
+    class TipoForm(models.TextChoices):
+        F1 = 'F1', _('Formulario 1')
+        F2 = 'F2', _('Formulario 2')
+        F3 = 'F3', _('Formulario 3')
+        
+    alumno = models.ForeignKey(Alumno, on_delete=models.CASCADE)
+    descripcion = models.TextField()
+    tipo_form = models.CharField(max_length=2, choices=TipoForm.choices, default=TipoForm.F1)
