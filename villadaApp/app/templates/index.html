@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block body_block %}
+<div class="container">
+    <div class="jumbotron">
+        <h1>Bienvenido!</h1>
+        {% if user.is_authenticated %}
+        <h2>Hola {{ user.username }}</h2>
+        <h1>Aca empezaria la app de verdad</h1>
+        {% else %}
+        <h2>inicie sesión si desea</h2>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
