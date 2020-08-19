@@ -1,6 +1,7 @@
 from django.db import models
 import datetime
-
+from django.contrib.auth.models import User
+# Create your models here.
 # Create your models here.
 class Curso(models.Model):
 
@@ -100,3 +101,4 @@ class ComunicadoGeneral(models.Model):
     fecha = models.DateField()
     directivo = models.ForeignKey(Directivo, on_delete=models.CASCADE)
     mensaje = models.TextField()
+
