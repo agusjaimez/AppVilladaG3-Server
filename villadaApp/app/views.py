@@ -17,8 +17,13 @@ def user_login(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         if email=="grupo3@gmail.com"and password=="grupo3":
-            return render(request, 'comunicado.html', {})
+            return render(request, 'comunicados.html', {})
         else:
             return HttpResponse("CASI bro")
     else:
         return render(request, 'login.html', {})
+def redactar(request):
+    return render(request ,'redactar.html',{})
+def comunicados(request):
+    return render(request ,'comunicados.html',{})
+    
