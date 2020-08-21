@@ -9,7 +9,6 @@
       <form method="post" action="{% url 'app:user_login' %}" align='center'>
           <div class="form-group row">
             {% csrf_token %}
-            {# A more "HTML" way of creating the login form#}
             <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
             <div class="col-md-6">
               <input type="email" name="email"  class="form-control" placeholder="email-address" required>

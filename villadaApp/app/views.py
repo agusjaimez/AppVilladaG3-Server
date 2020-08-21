@@ -3,15 +3,19 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+
 def index(request):
     return render(request,'index.html')
+
 @login_required
 def special(request):
     return HttpResponse("You are logged in !")
+
 @login_required
 def user_logout(request):
     logout(request)
-    return HttpResponseRedirect(reverse('index'))
+    return HttpResponseRedirect(reverse('user_login'))
+
 def user_login(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -22,8 +26,9 @@ def user_login(request):
             return HttpResponse("CASI bro")
     else:
         return render(request, 'login.html', {})
+
 def redactar(request):
     return render(request ,'redactar.html',{})
+    
 def comunicados(request):
     return render(request ,'comunicados.html',{})
-    
