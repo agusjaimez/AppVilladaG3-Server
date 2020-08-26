@@ -4,14 +4,13 @@
 <div class="container" align='center'>
     <div class="jumbotron">
       <h1>Ingrese sus datos :</h1>
-      <h6>Email de prueba = grupo3@gmail.com</h6>
-      <h6>Password de prueba = grupo3</h6>
+      <br><br>
       <form method="post" action="{% url 'app:user_login' %}" align='center'>
           <div class="form-group row">
             {% csrf_token %}
-            <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
+            <label for="username" class="col-md-4 col-form-label text-md-right">Username</label>
             <div class="col-md-6">
-              <input type="email" name="email"  class="form-control" placeholder="email-address" required>
+              <input type="username" name="username"  class="form-control" placeholder="Username" required>
             </div>
           </div>
 

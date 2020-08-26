@@ -8,4 +8,3 @@ urlpatterns=[
     url(r'^redactar/',views.redactar,name='redactar'),
     url(r'^comunicados/',views.comunicados,name='comunicados'),
 ]
-
