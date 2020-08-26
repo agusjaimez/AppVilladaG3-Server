@@ -1,10 +1,16 @@
 {% extends "base_usuario.html" %}
-{% block body_block %}
+
+
+{% block content %}
+{% if user.is_authenticated %}
+<!--<p>User: {{ user.username }} logged in.</p>-->
 <div class="container">
     <div class="jumbotron">
     <!--  Aca se redactaria > -->
         <h1>redactar...</h1>
     </div>
 </div>
+{% else %}
+        <h1>Sesion no Iniciada...</h1>
+{% endif %}
 {% endblock %}
-

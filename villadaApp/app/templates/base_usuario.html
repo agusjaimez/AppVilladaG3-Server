@@ -16,19 +16,26 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav" class="col-4 align-self-end">
                 <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <li><a class="nav-link" href="{% url 'app:comunicados' %}">Comunicados</a></li>
-                    </li>
-                    <li class="nav-item">
-                        <li><a class="nav-link" href="{% url 'app:redactar' %}">Redactar</a></li>
-                    </li>
+                    {% if user.is_authenticated %}
+
+                        <li class="nav-item active">
+                            <li><a class="nav-link" href="{% url 'app:comunicados' %}">Comunicados</a></li>
+                        </li>
+                        <li class="nav-item">
+                            <li><a class="nav-link" href="{% url 'app:redactar' %}">Redactar</a></li>
+                        </li>
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <li><a class="nav-link" href="{% url 'user_login'%}?next={{request.path}}">Logout</a></li>
+                            </li>
+                        </ul>
+                    {% else %}
+                        <li><a href="{% url 'user_login'%}?next={{request.path}}">Login</a></li>
+                    {% endif %}
+
+
                 </ul>
             </div>
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <li><a class="nav-link"href="{% url 'user_login' %}">Salir</a></li>
-                </li>
-            </ul>
         </nav>
         <div class="container">
             {% block body_block %}
