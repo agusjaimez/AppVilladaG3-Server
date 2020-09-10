@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import CreateView
 from django.contrib.auth import authenticate
+from .models import ComunicadoCurso, ComunicadoCiclo, ComunicadoGeneral
 
 
 def index(request):
@@ -16,7 +17,21 @@ def redactar(request):
     return render(request ,'redactar.html',{})
 
 def comunicados(request):
-    return render(request ,'comunicados.html',{})
+    com_cur_cant= ComunicadoCurso.objects.all().count() 
+    cursos = ComunicadoCurso.objects.all()
+    general = ComunicadoGeneral.objects.all()
+    general_cant = ComunicadoGeneral.objects.all(),count()
+    return render(request ,'comunicados.html', 
+        {'CCurso':ComunicadoCurso,
+        'CCiclo':ComunicadoCiclo, 
+        'CGeneral':ComunicadoGeneral, 
+        """ 'curso': curso_tipo """
+        'cantidad': com_cur_cant,
+        'curso':cursos,
+        'general':general,
+        'cant_general':general_cant
+        }
+    )
 
 @login_required
 def special(request):
@@ -39,3 +54,6 @@ def user_login(request):
             return HttpResponse("CASI bro")
     else:
         return render(request, 'login.html', {})
+""" def curso_tipo(response):
+    curso = response.get["curso"]
+    return ComunicadoCurso.objects.all().filter(cursos_name = curso).values_list('id', flat=True) """
