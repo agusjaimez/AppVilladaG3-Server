@@ -101,4 +101,3 @@ class ComunicadoGeneral(models.Model):
     fecha = models.DateField()
     directivo = models.ForeignKey(Directivo, on_delete=models.CASCADE)
     mensaje = models.TextField()
-

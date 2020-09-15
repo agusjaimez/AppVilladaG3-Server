@@ -10,14 +10,15 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js" integrity="sha384-XEerZL0cuoUbHE4nZReLT7nx9gQrQreJekYhJD9WNWhH8nEW+0c5qq7aIo2Wl30J" crossorigin="anonymous"></script>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">ITS Villada</a>
+            <a class="navbar-brand" href="{% url 'app:comunicados' %}">ITS Villada</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav" class="col-4 align-self-end">
                 <ul class="navbar-nav">
                     {% if user.is_authenticated %}
-
+                    {% block page %}
+                    {% endblock %}
                         <li class="nav-item active">
                             <li><a class="nav-link" href="{% url 'app:comunicados' %}">Comunicados</a></li>
                         </li>
@@ -41,8 +42,7 @@
             {% block body_block %}
             {% endblock %}
 
-            {% block lista_comunicados %}
-            {% endblock %}
+
         </div>
     </body>
 </html>
