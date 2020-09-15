@@ -54,7 +54,7 @@ def user_login(request):
         if user is not None:
             return render(request, 'comunicados.html', {})
         else:
-            return HttpResponse("CASI bro")
+            return render(request, 'login.html', {})
     else:
         return render(request, 'login.html', {})
 """ def curso_tipo(response):

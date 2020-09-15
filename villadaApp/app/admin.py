@@ -1,6 +1,17 @@
 from django.contrib import admin
-from app.models import *
 
+from .models import Curso
+from .models import Directivo
+from .models import Preceptor
+from .models import Alumno
+from .models import PadreTutor
+from .models import Formulario
+from .models import SolicitudReunion
+from .models import ComunicadoCurso
+from .models import ComunicadoCiclo
+from .models import ComunicadoGeneral
+
+# Register your models here.
 admin.site.register(Curso)
 admin.site.register(Directivo)
 admin.site.register(Preceptor)
