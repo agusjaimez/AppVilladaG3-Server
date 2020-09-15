@@ -8,30 +8,20 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import CreateView
 from django.contrib.auth import authenticate
 from .models import ComunicadoCurso, ComunicadoCiclo, ComunicadoGeneral
-
+from django.template import RequestContext
 
 def index(request):
     return render(request,'index.html')
 
-def redactar(request): 
+@login_required
+def redactar(request):
     return render(request ,'redactar.html',{})
 
+@login_required
 def comunicados(request):
-    com_cur_cant= ComunicadoCurso.objects.all().count() 
-    cursos = ComunicadoCurso.objects.all()
-    general = ComunicadoGeneral.objects.all()
-    general_cant = ComunicadoGeneral.objects.all(),count()
-    return render(request ,'comunicados.html', 
-        {'CCurso':ComunicadoCurso,
-        'CCiclo':ComunicadoCiclo, 
-        'CGeneral':ComunicadoGeneral, 
-        """ 'curso': curso_tipo """
-        'cantidad': com_cur_cant,
-        'curso':cursos,
-        'general':general,
-        'cant_general':general_cant
-        }
-    )
+    comunicadosCurso = ComunicadoCurso.objects.all().order_by('fecha')
+    return render(request ,'comunicados.html', {'comunicadosCurso':comunicadosCurso})
+
 
 @login_required
 def special(request):
@@ -51,7 +41,7 @@ def user_login(request):
         if user is not None:
             return render(request, 'comunicados.html', {})
         else:
-            return HttpResponse("CASI bro")
+            return render(request, 'login.html', {})
     else:
         return render(request, 'login.html', {})
 """ def curso_tipo(response):

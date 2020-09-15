@@ -1,9 +1,21 @@
 {% extends "base_usuario.html" %}
-{% block body_block %} 
+{% block body_block %}
 <div class="container">
-    <div class="jumbotron">
-    <!--  Aca se encontrarian todos los comunicados > -->
-        <h1>comunicados...</h1>
-    </div>
+    <body>
+        <div class="jumbotron">
+            <h1>comunicados...</h1>
+        </div>
+        <div class="comunicados">
+            {% for comunicado in comunicadosCurso %}
+                <div class="comunicado">
+                    <br>
+                    <a>{{comunicado.titulo}} -({{comunicado.fecha}})</a>
+                    <br><br>
+                    <p>{{comunicado.mensaje}}</p>
+                </div>
+            {%endfor%}
+        </div>
+    </body>
+
 </div>
 {% endblock %}
