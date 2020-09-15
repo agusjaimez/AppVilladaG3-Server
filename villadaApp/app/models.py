@@ -77,27 +77,31 @@ class Formulario(models.Model):
 
 class SolicitudReunion(models.Model):
     #Se debe agregar un estado de reunion(Aceptada, denegada, Procesando)
+
     padre = models.ForeignKey(PadreTutor, on_delete=models.CASCADE)
     fecha = models.DateField()
     motivo = models.TextField()
 
 class ComunicadoCurso(models.Model):
+    titulo = models.CharField(max_length=500, null=True, blank=True)
     fecha = models.DateField()
-    directivo = models.ForeignKey(Directivo, on_delete=models.CASCADE)
+    directivo = models.ForeignKey(Directivo, on_delete=models.CASCADE, null=True, blank=True)
     mensaje = models.TextField()
     cursos = models.ManyToManyField(Curso)
 
 class ComunicadoCiclo(models.Model):
+    titulo = models.CharField(max_length=500, null=True, blank=True)
     CICLOS = (
     ("B", "Basico"),
     ("A", "Avanzado"),
 )
     fecha = models.DateField()
-    directivo = models.ForeignKey(Directivo, on_delete=models.CASCADE)
+    directivo = models.ForeignKey(Directivo, on_delete=models.CASCADE, null=True, blank=True)
     mensaje = models.TextField()
     ciclo = models.CharField(max_length = 20 ,choices = CICLOS, default = 'B')
 
 class ComunicadoGeneral(models.Model):
+    titulo = models.CharField(max_length=500, null=True, blank=True)
     fecha = models.DateField()
-    directivo = models.ForeignKey(Directivo, on_delete=models.CASCADE)
+    directivo = models.ForeignKey(Directivo, on_delete=models.CASCADE, null=True, blank=True)
     mensaje = models.TextField()

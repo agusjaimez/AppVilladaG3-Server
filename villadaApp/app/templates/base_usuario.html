@@ -17,13 +17,12 @@
             <div class="collapse navbar-collapse" id="navbarNav" class="col-4 align-self-end">
                 <ul class="navbar-nav">
                     {% if user.is_authenticated %}
-                    {% block page %}
-                    {% endblock %}
+
                         <li class="nav-item active">
-                            <li><a class="nav-link" href="{% url 'app:comunicados' %}">Comunicados</a></li>
+                            <li><a class="nav-link" href="{% url 'comunicados' %}">Comunicados</a></li>
                         </li>
                         <li class="nav-item">
-                            <li><a class="nav-link" href="{% url 'app:redactar' %}">Redactar</a></li>
+                            <li><a class="nav-link" href="{% url 'redactar' %}">Redactar</a></li>
                         </li>
                         <ul class="navbar-nav">
                             <li class="nav-item">
