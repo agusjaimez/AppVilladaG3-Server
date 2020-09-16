@@ -9,6 +9,9 @@ from django.views.generic import CreateView
 from django.contrib.auth import authenticate
 from .models import ComunicadoCurso, ComunicadoCiclo, ComunicadoGeneral
 from django.template import RequestContext
+from django.shortcuts import redirect
+
+
 
 def index(request):
     return render(request,'index.html')
@@ -39,7 +42,9 @@ def user_login(request):
         password = request.POST.get('password')
         user = authenticate(username=username, password=password)
         if user is not None:
-            return comunicados(request)
+            login(request, user)
+            return redirect('comunicados')
+
         else:
             return render(request, 'login.html', {})
     else:
