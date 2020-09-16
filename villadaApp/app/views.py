@@ -39,7 +39,7 @@ def user_login(request):
         password = request.POST.get('password')
         user = authenticate(username=username, password=password)
         if user is not None:
-            return render(request, 'comunicados.html', {})
+            return comunicados(request)
         else:
             return render(request, 'login.html', {})
     else:
