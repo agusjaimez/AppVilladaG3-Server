@@ -50,16 +50,18 @@ class Directivo(models.Model):
         return (self.first_name + " "+ self.last_name)
 
 class Preceptor(models.Model):
-    curso = models.ManyToManyField(Curso)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     dni = models.CharField(max_length=30)
+    curso = MultiSelectField(choices=Curso.Cursos.choices, null=True, blank=True)
+
+
 
     def __str__(self):
         return (self.first_name + " "+ self.last_name)
 
 class Alumno(models.Model):
-    curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
+    curso = models.CharField(max_length=2, choices=Curso.Cursos.choices)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     dni = models.CharField(max_length=30)
