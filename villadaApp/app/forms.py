@@ -22,7 +22,7 @@ class ComunicadoForm(forms.ModelForm):
         }
         widgets = {
         'titulo': forms.TextInput(attrs={'class':'form-control'}),
-        'fecha': forms.DateTimeInput(attrs={'class':'form-control'}),
+        'fecha': forms.TextInput(attrs={'class':'form-control'}),
         'directivo': forms.Select(attrs={'class':'form-control'}),
         'mensaje':forms.Textarea(attrs={'class':'form-control'}),
         'curso':forms.CheckboxSelectMultiple(),

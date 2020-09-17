@@ -16,9 +16,27 @@ from .forms import ComunicadoForm
 def index(request):
     return render(request,'index.html')
 
+@login_required
+def eliminarComunicados(request, id_comunicado):
+    comunicado = Comunicado.objects.get(id= id_comunicado)
+    if request.method == "POST":
+        comunicado.delete()
+        return redirect('comunicados')
+    return render(request, 'delete_comunicado.html',{'comunicado':comunicado})
 
-def eliminarComunicados(request, id):
-    pass
+
+#Todavia no usamos esta vista, pero la dejo por si las dudas despues si...
+@login_required
+def editarComunicados(request, id_comunicado):
+    comunicado = Comunicado.objects.get(id= id_comunicado)
+    if request.method == "GET":
+        form = ComunicadoForm(instance=comunicado)
+    else:
+        form = ComunicadoForm(request.POST, instance=comunicado)
+        if form.is_valid():
+            form.save
+        return redirect('comunicados')
+    return render(request, "redactar.html")
 
 @login_required
 def redactar(request):

@@ -20,7 +20,7 @@
             <div class="comunicados" id="coms">
                 {% for comunicado in comunicados %}
                     <div class="comunicado">
-                        <h5>{{comunicado.titulo}} -({{comunicado.fecha}})</h5>
+                        <h5>{{comunicado.titulo}} -({{comunicado.fecha}})<a class="btn btn-danger float-right " href="{% url 'delete_comunicados' comunicado.id %}">Eliminar</a></h5>
                         <br>
                         <p>{{comunicado.mensaje}}</p>
                         <hr>
