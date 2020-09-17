@@ -36,7 +36,6 @@ class Curso(models.Model):
         septimoB = '7B', ('Septimo B')
         septimoC = '7C', ('Septimo C')
 
-    curso = MultiSelectField(choices=Cursos.choices)
     def __str__(self):
         return self.title
 
@@ -108,7 +107,7 @@ class Comunicado(models.Model):
     fecha = models.DateField()
     directivo = models.ForeignKey(Directivo, on_delete=models.CASCADE, null=True, blank=True)
     mensaje = models.TextField()
-    curso = models.ForeignKey(Curso, on_delete=models.CASCADE) 
-
+    #curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
+    curso = MultiSelectField(choices=Curso.Cursos.choices)
     def __str__(self):
         return (self.titulo)

@@ -7,26 +7,35 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import CreateView
 from django.contrib.auth import authenticate
-from .models import Comunicado
+from .models import Comunicado, Curso
 from django.template import RequestContext
 from django.shortcuts import redirect
-
+from .forms import ComunicadoForm
 
 
 def index(request):
     return render(request,'index.html')
 
+
+def eliminarComunicados(request, id):
+    pass
+
 @login_required
 def redactar(request):
-    return render(request ,'redactar.html',{})
+    if request.method == "POST":
+        form = ComunicadoForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return redirect('comunicados')
+    else:
+        form = ComunicadoForm()
+    return render(request, "redactar.html",{'form':form})
 
 @login_required
 def comunicados(request):
     comunicados = Comunicado.objects.all().order_by('fecha')
     return render(request ,'comunicados.html', {'comunicados':comunicados})
 
-def eliminarComunicados(request, id):
-    pass
 
 
 @login_required
