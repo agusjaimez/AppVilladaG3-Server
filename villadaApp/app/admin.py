@@ -7,9 +7,8 @@ from .models import Alumno
 from .models import PadreTutor
 from .models import Formulario
 from .models import SolicitudReunion
-from .models import ComunicadoCurso
-from .models import ComunicadoCiclo
-from .models import ComunicadoGeneral
+from .models import Comunicado
+
 
 # Register your models here.
 class CursoAdmin(admin.ModelAdmin):
@@ -45,16 +44,7 @@ class SolicitudReunionAdmin(admin.ModelAdmin):
 
 admin.site.register(SolicitudReunion,SolicitudReunionAdmin)
 
-class ComunicadoCursoAdmin(admin.ModelAdmin):
+class ComunicadoAdmin(admin.ModelAdmin):
     pass
 
-admin.site.register(ComunicadoCurso,ComunicadoCursoAdmin)
-
-class ComunicadoCicloAdmin(admin.ModelAdmin):
-    pass
-
-admin.site.register(ComunicadoCiclo,ComunicadoCicloAdmin)
-
-class ComunicadoGeneralAdmin(admin.ModelAdmin):
-    pass
-admin.site.register(ComunicadoGeneral,ComunicadoGeneralAdmin)
+admin.site.register(Comunicado,ComunicadoAdmin)

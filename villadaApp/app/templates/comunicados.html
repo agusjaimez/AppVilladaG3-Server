@@ -1,21 +1,46 @@
 {% extends "base_usuario.html" %}
 {% block body_block %}
+
 <div class="container">
     <body>
         <div class="jumbotron">
-            <h1>comunicados...</h1>
+            <h1>comunicados</h1>
+            <br><br>
+            <div class="form-group">
+            <label for="demo_overview_minimal">Filtrar por:</label>
+            <select id="demo_overview_minimal" class="form-control" data-role="select-dropdown" data-profile="minimal" onchange="Seleccion()">
+              <option value="todos">Todos</option>
+              <option value="CGE">Comunicados Generales</option>
+              <option value="CCI">Comunicados por Ciclo</option>
+              <option value="CCU">Comunicados por Cursos</option>
+            </select>
+            </div>
+            <br>
+            <hr>
+            <div class="comunicados" id="coms">
+                {% for comunicado in comunicados %}
+                    <div class="comunicado">
+                        <h5>{{comunicado.titulo}} -({{comunicado.fecha}})</h5>
+                        <br>
+                        <p>{{comunicado.mensaje}}</p>
+                        <hr>
+                    </div>
+                {%endfor%}
+
+            </div>
         </div>
-        <div class="comunicados">
-            {% for comunicado in comunicadosCurso %}
-                <div class="comunicado">
-                    <br>
-                    <a>{{comunicado.titulo}} -({{comunicado.fecha}})</a>
-                    <br><br>
-                    <p>{{comunicado.mensaje}}</p>
-                </div>
-            {%endfor%}
-        </div>
+
     </body>
 
 </div>
+<script>
+
+function Seleccion() {
+  var x = document.getElementById("demo_overview_minimal").value;
+  if (x == "todos") {
+      document.getElementById("coms").innerHTML = "You selected: " + x;
+  }
+
+}
+</script>
 {% endblock %}
