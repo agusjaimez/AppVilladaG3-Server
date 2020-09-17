@@ -1,10 +1,12 @@
 from django.db import models
 import datetime
-from django.contrib.auth.models import User
+from django import forms
+from multiselectfield import MultiSelectField
 # Create your models here.
 # Create your models here.
 class Curso(models.Model):
-
+    title = models.CharField(max_length=30)
+    #general = ('1A', ('Primero A'), '1B', ('Primero B'), '1C', ('Primero C'))
     class Cursos(models.TextChoices):
         primeroA = '1A', ('Primero A')
         primeroB = '1B', ('Primero B')
@@ -34,7 +36,9 @@ class Curso(models.Model):
         septimoB = '7B', ('Septimo B')
         septimoC = '7C', ('Septimo C')
 
-    curso = models.CharField(max_length=2, choices=Cursos.choices, default=Cursos.primeroA)
+    curso = MultiSelectField(choices=Cursos.choices)
+    def __str__(self):
+        return self.title
 
 class Directivo(models.Model):
     first_name = models.CharField(max_length=30)
@@ -43,17 +47,26 @@ class Directivo(models.Model):
     username = models.CharField(max_length=30)
     password = models.CharField(max_length=30)
 
+    def __str__(self):
+        return (self.first_name + " "+ self.last_name)
+
 class Preceptor(models.Model):
     curso = models.ManyToManyField(Curso)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     dni = models.CharField(max_length=30)
 
+    def __str__(self):
+        return (self.first_name + " "+ self.last_name)
+
 class Alumno(models.Model):
     curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     dni = models.CharField(max_length=30)
+
+    def __str__(self):
+        return (self.first_name + " "+ self.last_name)
 
 class PadreTutor(models.Model):
     alumno = models.ForeignKey(Alumno, on_delete=models.CASCADE)
@@ -63,6 +76,9 @@ class PadreTutor(models.Model):
     username = models.CharField(max_length=30)
     password = models.CharField(max_length=30)
     delegado = models.BooleanField(default=False)
+
+    def __str__(self):
+        return (self.first_name + " "+ self.last_name)
 
 class Formulario(models.Model):
 
@@ -75,33 +91,24 @@ class Formulario(models.Model):
     descripcion = models.TextField()
     tipo_form = models.CharField(max_length=2, choices=TipoForm.choices, default=TipoForm.F1)
 
+    def __str__(self):
+        return ("Alumno: "+self.alumno)
+
 class SolicitudReunion(models.Model):
     #Se debe agregar un estado de reunion(Aceptada, denegada, Procesando)
-
     padre = models.ForeignKey(PadreTutor, on_delete=models.CASCADE)
     fecha = models.DateField()
     motivo = models.TextField()
 
-class ComunicadoCurso(models.Model):
-    titulo = models.CharField(max_length=500, null=True, blank=True)
-    fecha = models.DateField()
-    directivo = models.ForeignKey(Directivo, on_delete=models.CASCADE, null=True, blank=True)
-    mensaje = models.TextField()
-    cursos = models.ManyToManyField(Curso)
+    def __str__(self):
+        return ("Solicitante: "+self.padre)
 
-class ComunicadoCiclo(models.Model):
+class Comunicado(models.Model):
     titulo = models.CharField(max_length=500, null=True, blank=True)
-    CICLOS = (
-    ("B", "Basico"),
-    ("A", "Avanzado"),
-)
     fecha = models.DateField()
     directivo = models.ForeignKey(Directivo, on_delete=models.CASCADE, null=True, blank=True)
     mensaje = models.TextField()
-    ciclo = models.CharField(max_length = 20 ,choices = CICLOS, default = 'B')
+    curso = models.ForeignKey(Curso, on_delete=models.CASCADE) 
 
-class ComunicadoGeneral(models.Model):
-    titulo = models.CharField(max_length=500, null=True, blank=True)
-    fecha = models.DateField()
-    directivo = models.ForeignKey(Directivo, on_delete=models.CASCADE, null=True, blank=True)
-    mensaje = models.TextField()
+    def __str__(self):
+        return (self.titulo)

@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import CreateView
 from django.contrib.auth import authenticate
-from .models import ComunicadoCurso, ComunicadoCiclo, ComunicadoGeneral
+from .models import Comunicado
 from django.template import RequestContext
 from django.shortcuts import redirect
 
@@ -22,8 +22,11 @@ def redactar(request):
 
 @login_required
 def comunicados(request):
-    comunicadosCurso = ComunicadoCurso.objects.all().order_by('fecha')
-    return render(request ,'comunicados.html', {'comunicadosCurso':comunicadosCurso})
+    comunicados = Comunicado.objects.all().order_by('fecha')
+    return render(request ,'comunicados.html', {'comunicados':comunicados})
+
+def eliminarComunicados(request, id):
+    pass
 
 
 @login_required
