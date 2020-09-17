@@ -22,8 +22,8 @@ from app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^$',views.user_login,name='user_login'),
-    url(r'comunicados/',views.comunicados,name='comunicados'),
-    url(r'redactar/',views.redactar,name='redactar'),
+    url(r'^comunicados/',views.comunicados,name='comunicados'),
+    url(r'^redactar/',views.redactar,name='redactar'),
     url(r'^logout/',views.user_logout,name='user_logout'),
     url(r'^special/',views.special,name='special'),
     url(r'^app/',include('app.urls')),

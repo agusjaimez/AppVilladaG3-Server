@@ -36,7 +36,6 @@ class Curso(models.Model):
         septimoB = '7B', ('Septimo B')
         septimoC = '7C', ('Septimo C')
 
-    curso = MultiSelectField(choices=Cursos.choices)
     def __str__(self):
         return self.title
 
@@ -51,16 +50,18 @@ class Directivo(models.Model):
         return (self.first_name + " "+ self.last_name)
 
 class Preceptor(models.Model):
-    curso = models.ManyToManyField(Curso)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     dni = models.CharField(max_length=30)
+    curso = MultiSelectField(choices=Curso.Cursos.choices, null=True, blank=True)
+
+
 
     def __str__(self):
         return (self.first_name + " "+ self.last_name)
 
 class Alumno(models.Model):
-    curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
+    curso = models.CharField(max_length=2, choices=Curso.Cursos.choices)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     dni = models.CharField(max_length=30)
@@ -108,7 +109,7 @@ class Comunicado(models.Model):
     fecha = models.DateField()
     directivo = models.ForeignKey(Directivo, on_delete=models.CASCADE, null=True, blank=True)
     mensaje = models.TextField()
-    curso = models.ForeignKey(Curso, on_delete=models.CASCADE) 
-
+    #curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
+    curso = MultiSelectField(choices=Curso.Cursos.choices)
     def __str__(self):
         return (self.titulo)
