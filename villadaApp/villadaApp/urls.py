@@ -23,6 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^$',views.user_login,name='user_login'),
     url(r'^comunicados/',views.comunicados,name='comunicados'),
+    url(r'^comunicados/',views.ordenar_por_dir,name='ordenar_por_dir'),
+    url(r'^comunicado/(?P<id_comunicado>\d+)/$',views.display_comunicado,name='display_comunicado'),
     url(r'^delete/(?P<id_comunicado>\d+)/$',views.eliminarComunicados,name='delete_comunicados'),
     url(r'^redactar/',views.redactar,name='redactar'),
     url(r'^logout/',views.user_logout,name='user_logout'),

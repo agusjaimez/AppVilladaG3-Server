@@ -4,25 +4,23 @@
 <div class="container">
     <body>
         <div class="jumbotron">
-            <h1>comunicados</h1>
+            <h1>Comunicados</h1>
             <br><br>
-            <div class="form-group">
-            <label for="demo_overview_minimal">Filtrar por:</label>
+            <!--<div class="form-group">
+            <label for="demo_overview_minimal">Ordenar por:</label>
             <select id="demo_overview_minimal" class="form-control" data-role="select-dropdown" data-profile="minimal" onchange="Seleccion()">
-              <option value="todos">Todos</option>
-              <option value="CGE">Comunicados Generales</option>
-              <option value="CCI">Comunicados por Ciclo</option>
-              <option value="CCU">Comunicados por Cursos</option>
+              <option value="fecha">Fecha</option>
+              <option value="directivo">Directivo</option>
             </select>
-            </div>
+            </div>-->
             <br>
             <hr>
             <div class="comunicados" id="coms">
                 {% for comunicado in comunicados %}
-                    <div class="comunicado">
-                        <h5>{{comunicado.titulo}} -({{comunicado.fecha}})<a class="btn btn-danger float-right " href="{% url 'delete_comunicados' comunicado.id %}">Eliminar</a></h5>
+                    <div class="comunicado" >
+                        <h5 ><a href="{% url 'display_comunicado' comunicado.id %}" style="color: #000000">{{comunicado.titulo}} -({{comunicado.fecha}})</a><a class="btn btn-danger float-right " href="{% url 'delete_comunicados' comunicado.id %}">Eliminar</a></h5>
                         <br>
-                        <p>{{comunicado.mensaje}}</p>
+                        <p><span style="display:inline-block;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{comunicado.mensaje}}</span></p>
                         <hr>
                     </div>
                 {%endfor%}
@@ -32,15 +30,18 @@
 
     </body>
 
-</div>
+</div><!--
 <script>
 
 function Seleccion() {
   var x = document.getElementById("demo_overview_minimal").value;
-  if (x == "todos") {
-      document.getElementById("coms").innerHTML = "You selected: " + x;
+  if (x == "directivo") {
+     window.location.href="{% url 'ordenar_por_dir' %}"
+  }
+  else if (x == "fecha") {
+      window.location.href="{% url 'comunicados' %}"
   }
 
 }
-</script>
+</script>-->
 {% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base_usuario.html" %}
+{% block body_block %}
+
+<div class="jumbotron">
+    <h2>{{comunicado.titulo}}</h2>
+    <hr>
+    <br>
+    <a>Fecha: {{comunicado.fecha}}</a>
+    <br>
+    <a>Directivo: {{comunicado.directivo}}</a>
+    <br>
+    <a>Enviado a: {% for curso in comunicado.curso %}
+         {{curso}}
+        {%endfor%}
+    </a>
+
+    <hr>
+    <a>{{comunicado.mensaje}}</a>
+</div>
+
+{% endblock %}

@@ -54,6 +54,16 @@ def comunicados(request):
     comunicados = Comunicado.objects.all().order_by('fecha')
     return render(request ,'comunicados.html', {'comunicados':comunicados})
 
+@login_required
+def display_comunicado(request, id_comunicado):
+    comunicado = Comunicado.objects.get(id= id_comunicado)
+    return render(request, 'comunicado.html',{'comunicado':comunicado})
+    
+@login_required
+def ordenar_por_dir(request, order):
+    comunicado = Comunicado.objects.all().order_by('directivo')
+    return render(request, 'comunicado.html',{'comunicados':comunicados})
+
 
 
 @login_required
