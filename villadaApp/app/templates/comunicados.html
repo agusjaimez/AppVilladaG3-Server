@@ -4,7 +4,7 @@
 <div class="container">
     <body>
         <div class="jumbotron">
-            <h1>Comunicados</h1>
+            <h1 style="text-align: center">Comunicados</h1>
             <br><br>
             <!--<div class="form-group">
             <label for="demo_overview_minimal">Ordenar por:</label>
@@ -13,6 +13,26 @@
               <option value="directivo">Directivo</option>
             </select>
             </div>-->
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 search">
+                        <form method="get">
+                            <div class="search_input">
+                                <div class="input-group col-md-13">
+                                    <input value="{{request.GET.buscar}}" type="text" class="form-control" placeholder="Buscar" name="buscar">
+                                    <span class="input-group-list">
+                                        <i class="icon icon-search"></i>
+                                        <button type="submit" class="btn">Buscar</button>
+                                    </span>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
             <br>
             <hr>
             <div class="comunicados" id="coms">

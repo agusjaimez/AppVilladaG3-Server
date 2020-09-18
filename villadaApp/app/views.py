@@ -11,7 +11,7 @@ from .models import Comunicado, Curso
 from django.template import RequestContext
 from django.shortcuts import redirect
 from .forms import ComunicadoForm
-
+from django.db.models import Q
 
 def index(request):
     return render(request,'index.html')
@@ -51,14 +51,21 @@ def redactar(request):
 
 @login_required
 def comunicados(request):
+    queryset = request.GET.get("buscar")
     comunicados = Comunicado.objects.all().order_by('fecha')
+    if queryset:
+        comunicados = Comunicado.objects.filter(
+        Q(titulo__icontains = queryset)|
+        Q(mensaje__icontains = queryset)
+        ).distinct()
+
     return render(request ,'comunicados.html', {'comunicados':comunicados})
 
 @login_required
 def display_comunicado(request, id_comunicado):
     comunicado = Comunicado.objects.get(id= id_comunicado)
     return render(request, 'comunicado.html',{'comunicado':comunicado})
-    
+
 @login_required
 def ordenar_por_dir(request, order):
     comunicado = Comunicado.objects.all().order_by('directivo')
