@@ -25,7 +25,7 @@ def eliminarComunicados(request, id_comunicado):
     return render(request, 'delete_comunicado.html',{'comunicado':comunicado})
 
 
-#Todavia no usamos esta vista, pero la dejo por si las dudas despues si...
+#Todavia no usamos esta vista, pero la dejo por si las dudas despues la usamos...
 @login_required
 def editarComunicados(request, id_comunicado):
     comunicado = Comunicado.objects.get(id= id_comunicado)
@@ -48,6 +48,8 @@ def redactar(request):
     else:
         form = ComunicadoForm()
     return render(request, "redactar.html",{'form':form})
+
+
 
 @login_required
 def comunicados(request):
