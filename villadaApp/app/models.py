@@ -91,9 +91,22 @@ class Formulario(models.Model):
     alumno = models.ForeignKey(Alumno, on_delete=models.CASCADE)
     descripcion = models.TextField()
     tipo_form = models.CharField(max_length=2, choices=TipoForm.choices, default=TipoForm.F1)
+    dias=models.CharField(max_length=45, null=True)
+    fecha=models.DateField()
 
     def __str__(self):
-        return ("Alumno: "+self.alumno)
+        return ("Alumno: "+str(self.alumno))
+    
+    def save(self, *args, **kwargs):
+        txt=''
+        if self.tipo_form=='F1':
+            txt= 'Córdoba, '+str(self.fecha)+'.\n Prof. Adriana Zarza \nMe dirijo a Ud. a los efectos de solicitarle la justificación de la/s inasistencia/s del Alumno '+str(self.alumno)+' del curso: '+str(self.alumno.curso)+' debido a: '+str(self.descripcion)+' los dias: '+str(self.dias)
+        elif self.tipo_form=='F2':
+            txt= 'f2'
+        else:
+            txt='f3'
+        self.descripcion = txt
+        super().save(*args, **kwargs)
 
 class SolicitudReunion(models.Model):
     #Se debe agregar un estado de reunion(Aceptada, denegada, Procesando)
