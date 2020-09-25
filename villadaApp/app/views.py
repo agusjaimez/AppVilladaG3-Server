@@ -12,6 +12,8 @@ from django.template import RequestContext
 from django.shortcuts import redirect
 from .forms import ComunicadoForm
 from django.db.models import Q
+from rest_framework import viewsets
+from .serializers import *
 
 def index(request):
     return render(request,'index.html')
@@ -101,3 +103,7 @@ def user_login(request):
 """ def curso_tipo(response):
     curso = response.get["curso"]
     return ComunicadoCurso.objects.all().filter(cursos_name = curso).values_list('id', flat=True) """
+
+class ComunicadoViewSet(viewsets.ModelViewSet):
+    queryset = Comunicado.objects.all()
+    serializer_class = ComunicadoSer

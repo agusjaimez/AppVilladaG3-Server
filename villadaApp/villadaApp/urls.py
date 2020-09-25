@@ -16,11 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url,include
-from app import views
+from app import views,urls
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    url(r'^app/',include('app.urls')),
     url(r'^$',views.user_login,name='user_login'),
     url(r'^comunicados/',views.comunicados,name='comunicados'),
     url(r'^comunicados/',views.ordenar_por_dir,name='ordenar_por_dir'),

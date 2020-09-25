@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'app',
     'bootstrap4',
     'multiselectfield',
+    'rest_framework',
 
 ]
 
