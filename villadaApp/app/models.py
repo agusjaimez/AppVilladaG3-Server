@@ -1,6 +1,7 @@
 from django.db import models
 import datetime
 from django import forms
+from django.core.exceptions import ValidationError
 from multiselectfield import MultiSelectField
 # Create your models here.
 # Create your models here.
@@ -40,14 +41,31 @@ class Curso(models.Model):
         return self.title
 
 class Directivo(models.Model):
+    CARGO_CHOICES = [
+    ('DG', 'Director General'),
+    ('DA', 'Director Academico'),
+    ('VD', 'Vicedirector'),
+]
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     email = models.EmailField(max_length=50)
     username = models.CharField(max_length=30)
     password = models.CharField(max_length=30)
+    cargo=models.CharField(max_length=2,choices=CARGO_CHOICES, default='VD')
 
     def __str__(self):
         return (self.first_name + " "+ self.last_name)
+    
+    def save(self, *args, **kwargs):
+        if self.cargo=='DA':
+            obj=Directivo.objects.filter(cargo='DA')
+            if obj.exists():
+                raise ValidationError('Solo puede existir un Directivo Academico',code='invalid')
+            else:
+                super().save(*args, **kwargs)
+        else:
+            super().save(*args, **kwargs)
+
 
 class Preceptor(models.Model):
     first_name = models.CharField(max_length=30)
@@ -96,11 +114,12 @@ class Formulario(models.Model):
 
     def __str__(self):
         return ("Alumno: "+str(self.alumno))
+
     
     def save(self, *args, **kwargs):
         txt=''
         if self.tipo_form=='F1':
-            txt= 'Córdoba, '+str(self.fecha)+'.\n Prof. Adriana Zarza \nMe dirijo a Ud. a los efectos de solicitarle la justificación de la/s inasistencia/s del Alumno '+str(self.alumno)+' del curso: '+str(self.alumno.curso)+' debido a: '+str(self.descripcion)+' los dias: '+str(self.dias)
+            txt= 'Córdoba, '+str(self.fecha)+'.\n Prof. '+str(Directivo.objects.get(cargo='DA'))+' \nMe dirijo a Ud. a los efectos de solicitarle la justificación de la/s inasistencia/s del Alumno '+str(self.alumno)+' del curso: '+str(self.alumno.curso)+' debido a: '+str(self.descripcion)+' los dias: '+str(self.dias)
         elif self.tipo_form=='F2':
             txt= 'f2'
         else:
@@ -126,3 +145,6 @@ class Comunicado(models.Model):
     curso = MultiSelectField(choices=Curso.Cursos.choices)
     def __str__(self):
         return (self.titulo)
+'''director general=ramacciotti
+director academico=adriana
+Vicedirectores=ruben y pablo'''
