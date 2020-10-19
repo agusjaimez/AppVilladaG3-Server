@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import CreateView
 from django.contrib.auth import authenticate
-from .models import Comunicado, Curso
+from .models import Comunicado, Curso, PadreTutor, Alumno
 from django.template import RequestContext
 from django.shortcuts import redirect
 from .forms import ComunicadoForm
@@ -107,3 +107,7 @@ def user_login(request):
 class ComunicadoViewSet(viewsets.ModelViewSet):
     queryset = Comunicado.objects.all()
     serializer_class = ComunicadoSer
+
+class AlumnoViewSet(viewsets.ModelViewSet):
+    queryset = Alumno.objects.all()
+    serializer_class = AlumnoSer

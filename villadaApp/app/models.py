@@ -55,7 +55,7 @@ class Directivo(models.Model):
 
     def __str__(self):
         return (self.first_name + " "+ self.last_name)
-    
+
     def save(self, *args, **kwargs):
         if self.cargo=='DA':
             obj=Directivo.objects.filter(cargo='DA')
@@ -78,17 +78,8 @@ class Preceptor(models.Model):
     def __str__(self):
         return (self.first_name + " "+ self.last_name)
 
-class Alumno(models.Model):
-    curso = models.CharField(max_length=2, choices=Curso.Cursos.choices)
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
-    dni = models.CharField(max_length=30)
-
-    def __str__(self):
-        return (self.first_name + " "+ self.last_name)
-
 class PadreTutor(models.Model):
-    alumno = models.ForeignKey(Alumno, on_delete=models.CASCADE)
+
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     email = models.EmailField(max_length=50)
@@ -98,6 +89,18 @@ class PadreTutor(models.Model):
 
     def __str__(self):
         return (self.first_name + " "+ self.last_name)
+
+class Alumno(models.Model):
+    curso = models.CharField(max_length=2, choices=Curso.Cursos.choices)
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    dni = models.CharField(max_length=30)
+    tutor = models.ForeignKey(PadreTutor, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return (self.first_name + " "+ self.last_name)
+
+
 
 class Formulario(models.Model):
 
@@ -115,7 +118,7 @@ class Formulario(models.Model):
     def __str__(self):
         return ("Alumno: "+str(self.alumno))
 
-    
+
     def save(self, *args, **kwargs):
         txt=''
         if self.tipo_form=='F1':

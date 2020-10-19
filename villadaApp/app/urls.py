@@ -5,6 +5,7 @@ from rest_framework import routers
 # SET THE NAMESPACE!
 router = routers.DefaultRouter()
 router.register(r'comunicados', views.ComunicadoViewSet)
+router.register(r'alumno', views.AlumnoViewSet)
 app_name = 'app'
 # Be careful setting the name to just /login use userlogin instead!
 urlpatterns=[
