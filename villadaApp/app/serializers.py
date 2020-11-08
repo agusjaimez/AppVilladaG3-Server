@@ -1,6 +1,6 @@
 from rest_framework import serializers
-
 from .models import Comunicado, Directivo, PadreTutor, Alumno, Directivo
+from django.contrib.auth.models import User
 
 
 class DirectivoSer(serializers.HyperlinkedModelSerializer):

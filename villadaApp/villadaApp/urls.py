@@ -18,7 +18,6 @@ from django.urls import path
 from django.conf.urls import url,include
 from app import views,urls
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^app/',include('app.urls')),
@@ -30,5 +29,6 @@ urlpatterns = [
     url(r'^redactar/',views.redactar,name='redactar'),
     url(r'^logout/',views.user_logout,name='user_logout'),
     url(r'^special/',views.special,name='special'),
+
 
 ]

@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'bootstrap4',
     'multiselectfield',
     'rest_framework',
-
 ]
 
 MIDDLEWARE = [
@@ -53,6 +52,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
+
 # Cree rutas dentro del proyecto de esta manera: os.path.join (BASE_DIR,…)
 BASE_DIR = os.path.dirname (os.path.dirname (os.path.abspath (__file__)))
 TEMPLATE_DIR = os.path.join (BASE_DIR, 'app/templates')
