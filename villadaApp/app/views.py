@@ -101,7 +101,11 @@ def user_login(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(username=username, password=password)
-        if user is not None:
+        if user is not None and user.groups.filter(name='Padres').exists():
+            login(request, user)
+            return redirect('comunicados')
+        	
+        elif user is not None:
             login(request, user)
             return redirect('comunicados')
 
@@ -109,6 +113,8 @@ def user_login(request):
             return render(request, 'login.html', {})
     else:
         return render(request, 'login.html', {})
+        
+        
 """ def curso_tipo(response):
     curso = response.get["curso"]
     return ComunicadoCurso.objects.all().filter(cursos_name = curso).values_list('id', flat=True) """
