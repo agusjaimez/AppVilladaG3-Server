@@ -22,8 +22,6 @@ from django.contrib.auth.models import User
 
 
 
-
-
 def index(request):
     return render(request,'index.html')
 
@@ -84,8 +82,6 @@ def ordenar_por_dir(request, order):
     comunicado = Comunicado.objects.all().order_by('directivo')
     return render(request, 'comunicado.html',{'comunicados':comunicados})
 
-
-
 @login_required
 def special(request):
     return HttpResponse("You are logged in !")
@@ -103,12 +99,10 @@ def user_login(request):
         user = authenticate(username=username, password=password)
         if user is not None and user.groups.filter(name='Padres').exists():
             login(request, user)
-            return redirect('comunicados')
-        	
+            return redirect('hola_padres')
         elif user is not None:
             login(request, user)
             return redirect('comunicados')
-
         else:
             return render(request, 'login.html', {})
     else:

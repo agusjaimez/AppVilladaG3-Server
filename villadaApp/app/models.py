@@ -100,13 +100,6 @@ def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
 
-<<<<<<< HEAD
-=======
-# @receiver(post_save, sender=User)
-# def save_user_profile(sender, instance, **kwargs):
-#     instance.padretutor.save()
->>>>>>> a56aee78962f2a904281559f7eda0b84be777014
-
 class Alumno(models.Model):
     curso = models.CharField(max_length=2, choices=Curso.Cursos.choices)
     first_name = models.CharField(max_length=30)

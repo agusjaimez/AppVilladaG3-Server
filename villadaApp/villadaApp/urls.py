@@ -17,16 +17,21 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url,include
 from app import views,urls
-
+from app_padres import views as views_padres
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^app/',include('app.urls')),
     url(r'^$',views.user_login,name='user_login'),
     url(r'^comunicados/',views.comunicados,name='comunicados'),
+    url(r'^usuario_padres/',views_padres.usuario_padres,name='usuario_padres'),
+    url(r'^comunicados_padres/',views_padres.comunicados_padres,name='comunicados_padres'),
     url(r'^comunicados/',views.ordenar_por_dir,name='ordenar_por_dir'),
+    url(r'^comunicados_padres/',views_padres.ordenar_por_dir_padres,name='ordenar_por_dir'),
     url(r'^comunicado/(?P<id_comunicado>\d+)/$',views.display_comunicado,name='display_comunicado'),
+    url(r'^comunicado_padres/(?P<id_comunicado>\d+)/$',views_padres.display_comunicado_padres,name='display_comunicado'),
     url(r'^delete/(?P<id_comunicado>\d+)/$',views.eliminarComunicados,name='delete_comunicados'),
     url(r'^redactar/',views.redactar,name='redactar'),
+    url(r'^hola_padres/',views_padres.hola_padres,name='hola_padres'),
     url(r'^logout/',views.user_logout,name='user_logout'),
     url(r'^special/',views.special,name='special'),
 

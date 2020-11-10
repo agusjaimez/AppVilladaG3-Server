@@ -1,0 +1,106 @@
+{% extends 'base_padres.html' %}
+{% block body_block %} 
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+
+<hr>
+<div class="container bootstrap snippet">
+	
+			<!--left col 
+            
+                <h1  >{{ user.get_username }}</h1>
+            -->
+			<div class="text-center">
+                <h1  >{{ user.first_name }} {{user.last_name}}</h1>
+				<img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
+				
+			</div><br>
+<!--
+			<ul class="list-group">
+				<li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
+				<li class="list-group-item text-right"><span class="pull-left"><strong>Shares</strong></span> 125</li>
+				<li class="list-group-item text-right"><span class="pull-left"><strong>Likes</strong></span> 13</li>
+				<li class="list-group-item text-right"><span class="pull-left"><strong>Posts</strong></span> 37</li>
+				<li class="list-group-item text-right"><span class="pull-left"><strong>Followers</strong></span> 78</li>
+			</ul>
+
+			<div class="panel panel-default">
+				<div class="panel-heading">Social Media</div>
+				<div class="panel-body">
+					<i class="fa fa-facebook fa-2x"></i> <i class="fa fa-github fa-2x"></i> <i class="fa fa-twitter fa-2x"></i> <i class="fa fa-pinterest fa-2x"></i> <i class="fa fa-google-plus fa-2x"></i>
+				</div>
+			</div>
+-->
+		</div>
+		<!--/col-3-->
+		<div  class="text-center">
+			<ul class="nav nav-tabs">
+				<li class="active"><a data-toggle="tab" href="#home">User {{ user.get_username }}</a></li>
+				<li><a data-toggle="tab" href="#messages">Hijo/s</a></li>
+			</ul>
+
+
+			<div class="tab-content">
+				<div class="tab-pane active" id="home">
+						<div class="form-group">
+
+							<div class="col-xs-6">
+								<label for="first_name"><h4>Nombre : {{ user.first_name }}</h4></label>
+								</div>
+						</div>
+						<div class="form-group">
+
+							<div class="col-xs-6">
+								<label for="last_name"><h4>Apellido : {{ user.last_name }}</h4></label>
+								</div>
+						</div>
+
+						<div class="form-group">
+
+							<div class="col-xs-6">
+								<label for="phone"><h4>Email : {{ user.email }}</h4></label>
+								</div>
+						</div>
+
+						<div class="form-group">
+							<div class="col-xs-6">
+								<label for="mobile"><h4>Delegado : {{ user.delegado }}</h4></label>
+								</div>
+						</div>
+						<div class="form-group">
+
+						</div>
+				</div>
+				<!--/tab-pane-->
+				<div class="tab-pane" id="messages">
+
+					<h2></h2>
+
+					<hr>
+					<form class="form" action="##" method="post" id="registrationForm">
+					<h1>aca tendria q aparecer la informacion del/los hijos del padre/madre/tutor</h1>
+					</form>
+
+				</div>
+				<!--/tab-pane-->
+			</div>
+			<!--/tab-pane-->
+		</div>
+		<!--/tab-content-->
+{% endblock %} 
