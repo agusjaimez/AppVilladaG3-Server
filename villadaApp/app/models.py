@@ -3,6 +3,13 @@ import datetime
 from django import forms
 from django.core.exceptions import ValidationError
 from multiselectfield import MultiSelectField
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+
+
+
 # Create your models here.
 # Create your models here.
 class Curso(models.Model):
@@ -79,16 +86,23 @@ class Preceptor(models.Model):
         return (self.first_name + " "+ self.last_name)
 
 class PadreTutor(models.Model):
-
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     email = models.EmailField(max_length=50)
-    username = models.CharField(max_length=30)
-    password = models.CharField(max_length=30)
     delegado = models.BooleanField(default=False)
 
     def __str__(self):
         return (self.first_name + " "+ self.last_name)
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.padretutor.save()
 
 class Alumno(models.Model):
     curso = models.CharField(max_length=2, choices=Curso.Cursos.choices)
