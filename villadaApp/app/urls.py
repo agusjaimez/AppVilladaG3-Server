@@ -19,4 +19,5 @@ urlpatterns=[
     url(r'^comunicados_padres/',views_padres.comunicados_padres,name='comunicados_padres'),
     path('api', include(router.urls)),
     path('user/', views.UserRecordView.as_view(), name='users'),
+    #path('authenticate/', views.CustomObtainAuthToken.as_view(), name='authenticate'),
 ]

@@ -6,7 +6,7 @@ from multiselectfield import MultiSelectField
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-
+from rest_framework.authtoken.models import Token
 
 
 
@@ -99,6 +99,7 @@ class PadreTutor(models.Model):
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         PadreTutor.objects.create(user=instance)
+        Token.objects.create(user=instance)
 
 class Alumno(models.Model):
     curso = models.CharField(max_length=2, choices=Curso.Cursos.choices)

@@ -19,7 +19,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAdminUser
 from django.contrib.auth.models import User
-
+from rest_framework.authtoken.views import *
 
 
 def index(request):
@@ -133,6 +133,7 @@ class UserRecordView(APIView):
     def get(self, format=None):
         users = User.objects.all()
         serializer = UserSerializer(users, many=True)
+        #print((super(CustomObtainAuthToken, self).post(request, *args, **kwargs)).data['token'])
         return Response(serializer.data)
 
     def post(self, request):
@@ -150,3 +151,10 @@ class UserRecordView(APIView):
             },
             status=status.HTTP_400_BAD_REQUEST
         )
+
+# class CustomObtainAuthToken(ObtainAuthToken):
+#     def get(self, request, *args, **kwargs):
+#         response = super(CustomObtainAuthToken, self).post(request, *args, **kwargs)
+#         token = Token.objects.get(key=response.data['token'])
+#
+#         return Response({'token': token.key, 'user': token.username})
