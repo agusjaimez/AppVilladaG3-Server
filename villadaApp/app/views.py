@@ -123,20 +123,20 @@ class AlumnoViewSet(viewsets.ModelViewSet):
 
 
 class UserRecordView(APIView):
-    """
-    API View to create or get a list of all the registered
-    users. GET request returns the registered users whereas
-    a POST request allows to create a new user.
-    """
-    permission_classes = [IsAdminUser]
 
-    def get(self, format=None):
-        users = User.objects.all()
-        serializer = UserSerializer(users, many=True)
-        #print((super(CustomObtainAuthToken, self).post(request, *args, **kwargs)).data['token'])
+    #permission_classes = [IsAdminUser]
+
+    def get(self,  request):
+
+        authorization= request.headers['Authorization']
+        array_token = authorization.split()
+        token = Token.objects.get(key=array_token[1])
+        user = User.objects.filter(username=token.user)
+        serializer = UserSerializer(user, many=True)
         return Response(serializer.data)
 
     def post(self, request):
+        print(request.data)
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid(raise_exception=ValueError):
             serializer.create(validated_data=request.data)
@@ -151,10 +151,3 @@ class UserRecordView(APIView):
             },
             status=status.HTTP_400_BAD_REQUEST
         )
-
-# class CustomObtainAuthToken(ObtainAuthToken):
-#     def get(self, request, *args, **kwargs):
-#         response = super(CustomObtainAuthToken, self).post(request, *args, **kwargs)
-#         token = Token.objects.get(key=response.data['token'])
-#
-#         return Response({'token': token.key, 'user': token.username})
