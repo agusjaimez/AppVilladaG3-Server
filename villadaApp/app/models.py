@@ -86,7 +86,7 @@ class Preceptor(models.Model):
         return (self.first_name + " "+ self.last_name)
 
 class PadreTutor(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     email = models.EmailField(max_length=50)

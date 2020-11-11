@@ -35,9 +35,13 @@ def hola_padres(request):
 @login_required
 def comunicados_padres(request):
     queryset = request.GET.get("buscar")
-    comunicados = Comunicado.objects.all().order_by('fecha')
+    padre = PadreTutor.objects.filter(user=request.user.id)[0]
+    alumno = Alumno.objects.filter(tutor = padre.id).values("curso")
+    cursos = [a["curso"] for a in alumno]
+    comunicados = Comunicado.objects.filter(Q(curso__in = alumno)).order_by('fecha')
     if queryset:
         comunicados = Comunicado.objects.filter(
+        Q(curso__in = alumno),
         Q(titulo__icontains = queryset)|
         Q(mensaje__icontains = queryset)
         ).distinct()
@@ -56,4 +60,19 @@ def ordenar_por_dir_padres(request, order):
 
 @login_required
 def usuario_padres(request):
-    return render(request, 'usuario_padres.html')
+
+    tutor = PadreTutor.objects.filter(user=request.user.id)[0]
+    alumno = Alumno.objects.filter(tutor = tutor.id)
+
+
+    return render(request, 'usuario_padres.html', {"tutor":tutor,"alumnos":alumno})
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
