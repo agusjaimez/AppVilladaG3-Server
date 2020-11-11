@@ -18,6 +18,8 @@ from django.urls import path
 from django.conf.urls import url,include
 from app import views,urls
 from app_padres import views as views_padres
+from rest_framework.authtoken import views as auth_view
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^app/',include('app.urls')),
@@ -34,6 +36,6 @@ urlpatterns = [
     url(r'^hola_padres/',views_padres.hola_padres,name='hola_padres'),
     url(r'^logout/',views.user_logout,name='user_logout'),
     url(r'^special/',views.special,name='special'),
-
+    path('api-token-auth/', auth_view.obtain_auth_token, name='api-token-auth'),
 
 ]

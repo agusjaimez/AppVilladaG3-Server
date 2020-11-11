@@ -107,8 +107,8 @@ def user_login(request):
             return render(request, 'login.html', {})
     else:
         return render(request, 'login.html', {})
-        
-        
+
+
 """ def curso_tipo(response):
     curso = response.get["curso"]
     return ComunicadoCurso.objects.all().filter(cursos_name = curso).values_list('id', flat=True) """
@@ -120,3 +120,33 @@ class ComunicadoViewSet(viewsets.ModelViewSet):
 class AlumnoViewSet(viewsets.ModelViewSet):
     queryset = Alumno.objects.all()
     serializer_class = AlumnoSer
+
+
+class UserRecordView(APIView):
+    """
+    API View to create or get a list of all the registered
+    users. GET request returns the registered users whereas
+    a POST request allows to create a new user.
+    """
+    permission_classes = [IsAdminUser]
+
+    def get(self, format=None):
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=ValueError):
+            serializer.create(validated_data=request.data)
+            return Response(
+                serializer.data,
+                status=status.HTTP_201_CREATED
+            )
+        return Response(
+            {
+                "error": True,
+                "error_msg": serializer.error_messages,
+            },
+            status=status.HTTP_400_BAD_REQUEST
+        )

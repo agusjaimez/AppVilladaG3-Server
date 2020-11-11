@@ -98,7 +98,7 @@ class PadreTutor(models.Model):
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        Profile.objects.create(user=instance)
+        PadreTutor.objects.create(user=instance)
 
 class Alumno(models.Model):
     curso = models.CharField(max_length=2, choices=Curso.Cursos.choices)
