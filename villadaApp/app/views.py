@@ -19,7 +19,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAdminUser
 from django.contrib.auth.models import User
-
+from rest_framework.authtoken.views import *
 
 
 def index(request):
@@ -107,8 +107,8 @@ def user_login(request):
             return render(request, 'login.html', {})
     else:
         return render(request, 'login.html', {})
-        
-        
+
+
 """ def curso_tipo(response):
     curso = response.get["curso"]
     return ComunicadoCurso.objects.all().filter(cursos_name = curso).values_list('id', flat=True) """
@@ -120,3 +120,34 @@ class ComunicadoViewSet(viewsets.ModelViewSet):
 class AlumnoViewSet(viewsets.ModelViewSet):
     queryset = Alumno.objects.all()
     serializer_class = AlumnoSer
+
+
+class UserRecordView(APIView):
+
+    #permission_classes = [IsAdminUser]
+
+    def get(self,  request):
+
+        authorization= request.headers['Authorization']
+        array_token = authorization.split()
+        token = Token.objects.get(key=array_token[1])
+        user = User.objects.filter(username=token.user)
+        serializer = UserSerializer(user, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        print(request.data)
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=ValueError):
+            serializer.create(validated_data=request.data)
+            return Response(
+                serializer.data,
+                status=status.HTTP_201_CREATED
+            )
+        return Response(
+            {
+                "error": True,
+                "error_msg": serializer.error_messages,
+            },
+            status=status.HTTP_400_BAD_REQUEST
+        )
