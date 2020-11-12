@@ -3,12 +3,17 @@ import datetime
 from django import forms
 from django.core.exceptions import ValidationError
 from multiselectfield import MultiSelectField
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
-
-
+from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import PermissionsMixin
+from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
+from .managers import CustomUserManager
+from django.contrib.auth.models import Group
 
 # Create your models here.
 # Create your models here.
@@ -85,8 +90,29 @@ class Preceptor(models.Model):
     def __str__(self):
         return (self.first_name + " "+ self.last_name)
 
+
+
+class CustomUser(AbstractBaseUser, PermissionsMixin):
+    username = models.CharField(max_length=30, unique=True)
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    email = models.EmailField(_('email address'))
+    is_padre = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    date_joined = models.DateTimeField(default=timezone.now)
+
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = []
+
+    objects = CustomUserManager()
+
+    def __str__(self):
+        return self.username
+
+
 class PadreTutor(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, null=True)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     email = models.EmailField(max_length=50)
@@ -95,11 +121,19 @@ class PadreTutor(models.Model):
     def __str__(self):
         return (self.first_name + " "+ self.last_name)
 
-@receiver(post_save, sender=User)
+@receiver(post_save, sender=CustomUser)
 def create_user_profile(sender, instance, created, **kwargs):
+	
+    my_group, exist = Group.objects.get_or_create(name='Padres') 
+	
     if created:
-        PadreTutor.objects.create(user=instance)
+        #print(instance)
+        if instance.is_padre:
+            my_group.user_set.add(instance)
+        PadreTutor.objects.create(user=instance, first_name=instance.first_name, last_name=instance.last_name, email=instance.email)
         Token.objects.create(user=instance)
+
+
 
 class Alumno(models.Model):
     curso = models.CharField(max_length=2, choices=Curso.Cursos.choices)

@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
 ]
+AUTH_USER_MODEL = 'app.CustomUser'
+SILENCED_SYSTEM_CHECKS = ['auth.E003', 'auth.W004']
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

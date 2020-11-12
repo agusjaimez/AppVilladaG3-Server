@@ -17,8 +17,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAdminUser
-from django.contrib.auth.models import User
-
+#from django.contrib.auth.models import User
+from app.models import CustomUser as User
 
 
 def hola_padres(request):
@@ -38,7 +38,7 @@ def comunicados_padres(request):
     padre = PadreTutor.objects.filter(user=request.user.id)[0]
     alumno = Alumno.objects.filter(tutor = padre.id).values("curso")
     cursos = [a["curso"] for a in alumno]
-    comunicados = Comunicado.objects.filter(Q(curso__in = alumno)).order_by('fecha')
+    comunicados = Comunicado.objects.filter(Q(curso__icontains = alumno)|Q(curso__in = alumno)).order_by('fecha')
     if queryset:
         comunicados = Comunicado.objects.filter(
         Q(curso__in = alumno),
