@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Comunicado, Directivo, PadreTutor, Alumno, Directivo
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
+from .models import CustomUser as User
 from rest_framework.validators import UniqueTogetherValidator
 
 class DirectivoSer(serializers.HyperlinkedModelSerializer):

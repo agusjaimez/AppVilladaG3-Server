@@ -18,9 +18,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAdminUser
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
 from rest_framework.authtoken.views import *
-
+from .models import CustomUser as User
 
 def index(request):
     return render(request,'index.html')
@@ -100,7 +100,7 @@ def user_login(request):
         if user is not None and user.groups.filter(name='Padres').exists():
             login(request, user)
             return redirect('hola_padres')
-        elif user is not None:
+        elif user is not None and user.is_superuser:
             login(request, user)
             return redirect('comunicados')
         else:
@@ -137,7 +137,7 @@ class UserRecordView(APIView):
 
     def post(self, request):
         print(request.data)
-        serializer = UserSerializer(data=request.data)
+        serializer = Serializer(data=request.data)
         if serializer.is_valid(raise_exception=ValueError):
             serializer.create(validated_data=request.data)
             return Response(
