@@ -19,8 +19,7 @@
 </head>
 
 
-<hr>
-<div class="container bootstrap snippet">
+<div class="jumbotron">
 	
 			<!--left col 
             
@@ -95,12 +94,18 @@
 							{% for alumno in alumnos %}
 							
 							
-								<div class="form-group">
+								<div class="card">
 
-									<div class="col-xs-6">
-										<label for="first_name"><h4>Nombre : {{ alumno.first_name }}</h4></label></br>
-										<label for="first_name"><h4>Apellido : {{ alumno.last_name }}</h4></label></br>
+									<div class="row">
+										<div style=" padding-left: 20px; padding-right:  20px;padding-top: 10px;padding-bottom: 10;padding-bottom: 10px;">
+										<img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar" float:left; width="150" height="150" >
+										</div>
+										<div style="padding-top: 20px;">
+										<label class = 'first_name'for="first_name"><h4>Nombre : {{ alumno.first_name }}</h4></label></br>
+										<label for="last_name"><h4>Apellido : {{ alumno.last_name }}</h4></label></br>
 										<label for="first_name"><h4>Curso : {{ alumno.curso }}</h4></label>
+										</div>
+										<!--hay mas lugar a la derecha de los datos para q posteriormente se incorporen mas datos y/o funcionalidades-->
 									</div>
 
 								</div>
