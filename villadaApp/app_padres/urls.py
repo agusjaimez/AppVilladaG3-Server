@@ -10,7 +10,6 @@ app_name = 'app_padres'
 # Be careful setting the name to just /login use userlogin instead!
 urlpatterns=[
     ##-------------------------------------------------------
-    url(r'^hola_padres/',views_padres.hola_padres,name='hola_padres'),
     url(r'^usuario_padres/',views_padres.usuario_padres,name='usuario_padres'),
     url(r'^comunicados_padres/',views_padres.comunicados_padres,name='comunicados_padres'),
     ##-------------------------------------------------------

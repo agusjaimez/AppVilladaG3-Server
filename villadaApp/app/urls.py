@@ -14,7 +14,6 @@ urlpatterns=[
     url(r'^user_login/$',views.user_login,name='user_login'),
     url(r'^redactar/',views.redactar,name='redactar'),
     url(r'^comunicados/',views.comunicados,name='comunicados'),
-    url(r'^hola_padres/',views_padres.hola_padres,name='hola_padres'),
     url(r'^usuario_padres/',views_padres.usuario_padres,name='usuario_padres'),
     url(r'^comunicados_padres/',views_padres.comunicados_padres,name='comunicados_padres'),
     path('api', include(router.urls)),

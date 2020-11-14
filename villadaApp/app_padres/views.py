@@ -21,58 +21,40 @@ from rest_framework.permissions import IsAdminUser
 from app.models import CustomUser as User
 
 
-def hola_padres(request):
-    if request.method == "POST":
-        form = ComunicadoForm(request.POST)
-        if form.is_valid():
-            form.save()
-        return redirect('comunicados')
-    else:
-        form = ComunicadoForm()
-    return render(request, "hola_padres.html")
-
-
-@login_required
+@login_required(login_url="/")
 def comunicados_padres(request):
+    if request.user.groups.filter(name='Padres').exists() == False:
+        return render(request, 'login.html', {})
+
     queryset = request.GET.get("buscar")
     padre = PadreTutor.objects.filter(user=request.user.id)[0]
     alumno = Alumno.objects.filter(tutor = padre.id).values("curso")
     cursos = [a["curso"] for a in alumno]
     comunicados = Comunicado.objects.filter(Q(curso__icontains = alumno)|Q(curso__in = alumno)).order_by('fecha')
     if queryset:
-        comunicados = Comunicado.objects.filter(
-        Q(curso__in = alumno),
+        comunicados = comunicados.filter(
         Q(titulo__icontains = queryset)|
-        Q(mensaje__icontains = queryset)
+        Q(mensaje__icontains = queryset)|
+        Q(fecha__icontains = queryset)
         ).distinct()
-
     return render(request ,'comunicados_padres.html', {'comunicados':comunicados})
 
-@login_required
+@login_required(login_url="/")
 def display_comunicado_padres(request, id_comunicado):
+    if request.user.groups.filter(name='Padres').exists() == False:
+        return render(request, 'login.html', {})
     comunicado = Comunicado.objects.get(id= id_comunicado)
     return render(request, 'comunicado_padres.html',{'comunicado':comunicado})
 
-@login_required
+@login_required(login_url="/")
 def ordenar_por_dir_padres(request, order):
     comunicado = Comunicado.objects.all().order_by('directivo')
     return render(request, 'comunicado_padres.html',{'comunicados':comunicados})
 
-@login_required
+@login_required(login_url="/")
 def usuario_padres(request):
-
+    if request.user.groups.filter(name='Padres').exists() == False:
+        return render(request, 'login.html', {})
     tutor = PadreTutor.objects.filter(user=request.user.id)[0]
     alumno = Alumno.objects.filter(tutor = tutor.id)
-
-
     return render(request, 'usuario_padres.html', {"tutor":tutor,"alumnos":alumno})
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    

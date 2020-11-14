@@ -33,9 +33,7 @@ urlpatterns = [
     url(r'^comunicado_padres/(?P<id_comunicado>\d+)/$',views_padres.display_comunicado_padres,name='display_comunicado'),
     url(r'^delete/(?P<id_comunicado>\d+)/$',views.eliminarComunicados,name='delete_comunicados'),
     url(r'^redactar/',views.redactar,name='redactar'),
-    url(r'^hola_padres/',views_padres.hola_padres,name='hola_padres'),
     url(r'^logout/',views.user_logout,name='user_logout'),
-    url(r'^special/',views.special,name='special'),
     path('api-token-auth/', auth_view.obtain_auth_token, name='api-token-auth'),
 
 ]
