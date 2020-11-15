@@ -30,10 +30,11 @@ urlpatterns = [
     url(r'^comunicados/',views.ordenar_por_dir,name='ordenar_por_dir'),
     url(r'^comunicados_padres/',views_padres.ordenar_por_dir_padres,name='ordenar_por_dir'),
     url(r'^comunicado/(?P<id_comunicado>\d+)/$',views.display_comunicado,name='display_comunicado'),
-    url(r'^comunicado_padres/(?P<id_comunicado>\d+)/$',views_padres.display_comunicado_padres,name='display_comunicado'),
+    url(r'^comunicado_padres/(?P<id_comunicado>\d+)/$',views_padres.display_comunicado_padres,name='display_comunicado_padres'),
     url(r'^delete/(?P<id_comunicado>\d+)/$',views.eliminarComunicados,name='delete_comunicados'),
     url(r'^redactar/',views.redactar,name='redactar'),
     url(r'^logout/',views.user_logout,name='user_logout'),
     path('api-token-auth/', auth_view.obtain_auth_token, name='api-token-auth'),
+    path('editar_usuario/', views_padres.editar_usuario, name='editar_usuario'),
 
 ]

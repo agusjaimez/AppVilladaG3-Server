@@ -37,16 +37,16 @@
             <hr>
             <div class="comunicados" id="coms">
                 {% for comunicado in comunicados %}
- 
+
 	                <div class="comunicado" >
-	                    <h5 ><a href="{% url 'display_comunicado' comunicado.id %}" style="color: #000000">{{comunicado.titulo}} -({{comunicado.fecha}})</a></h5>
+	                    <h5 ><a href="{% url 'display_comunicado_padres' comunicado.id %}" style="color: #000000">{{comunicado.titulo}} -({{comunicado.fecha}})</a></h5>
 	                    <br>
 	                    <p><span style="display:inline-block;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{comunicado.mensaje}}</span></p>
 	                    <hr>
 	                </div>
-	      
+
                 {%endfor%}
-            
+
             </div>
         </div>
 

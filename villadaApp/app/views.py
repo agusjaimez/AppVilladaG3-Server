@@ -21,6 +21,7 @@ from rest_framework.permissions import IsAdminUser
 #from django.contrib.auth.models import User
 from rest_framework.authtoken.views import *
 from .models import CustomUser as User
+from datetime import date
 
 @login_required(login_url="/")
 def eliminarComunicados(request, id_comunicado):
@@ -42,9 +43,12 @@ def redactar(request):
         form = ComunicadoForm(request.POST)
         if form.is_valid():
             form.save()
+        else:
+            return HttpResponse("<br><br><br><br><br><br><br><br><h1 style='text-align: center; color: red; font-family: Arial, Helvetica, sans-serif;'>Porfavor complete bien los campos! </h1>")
         return redirect('comunicados')
     else:
-        form = ComunicadoForm()
+        today = date.today()
+        form = ComunicadoForm(initial={"fecha":today.strftime("%Y-%m-%d")})
     return render(request, "redactar.html",{'form':form})
 
 
@@ -54,7 +58,7 @@ def comunicados(request):
     if request.user.groups.filter(name='Padres').exists():
         return redirect('comunicados_padres')
     queryset = request.GET.get("buscar")
-    comunicados = Comunicado.objects.all().order_by('fecha')
+    comunicados = Comunicado.objects.all().order_by('-fecha')
     if queryset:
         comunicados = Comunicado.objects.filter(
         Q(titulo__icontains = queryset)|

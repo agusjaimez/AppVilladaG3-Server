@@ -7,10 +7,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import CreateView
 from django.contrib.auth import authenticate
-from app.models import Comunicado, Curso, PadreTutor, Alumno
+from app.models import Comunicado, Curso, PadreTutor, Alumno, CustomUser
 from django.template import RequestContext
 from django.shortcuts import redirect
-from app.forms import ComunicadoForm
+from app.forms import ComunicadoForm, CustomUserChangeForm
 from django.db.models import Q
 from rest_framework import viewsets
 from rest_framework.views import APIView
@@ -22,6 +22,31 @@ from app.models import CustomUser as User
 
 
 @login_required(login_url="/")
+def editar_usuario(request):
+    if request.user.groups.filter(name='Padres').exists() == False:
+        return redirect('comunicados_padres')
+
+    usuario = CustomUser.objects.filter(username = request.user.username)
+    tutor = PadreTutor.objects.filter(user=request.user.id)
+
+    if request.method == "POST":
+        new_username = request.POST.get("username")
+        new_first_name = request.POST.get("first_name")
+        new_last_name = request.POST.get("last_name")
+        new_email = request.POST.get("email")
+
+        if  new_username != request.user.username and CustomUser.objects.filter(username = new_username).exists():
+            return HttpResponse("<br><br><br><br><br><br><br><br><h1 style='text-align: center; color: red; font-family: Arial, Helvetica, sans-serif;'>El Nombre de Usuario Ya Existe </h1>")
+
+
+        usuario.update(username=new_username)
+        tutor.update(first_name=new_first_name, last_name=new_last_name, email=new_email)
+        return redirect('usuario_padres')
+    else:
+        form = CustomUserChangeForm(initial={'username': usuario[0].username, 'first_name': tutor[0].first_name,'last_name': tutor[0].last_name,'email': tutor[0].email,})
+    return render(request, "editar_usuario.html",{'form':form})
+
+@login_required(login_url="/")
 def comunicados_padres(request):
     if request.user.groups.filter(name='Padres').exists() == False:
         return render(request, 'login.html', {})
@@ -30,7 +55,7 @@ def comunicados_padres(request):
     padre = PadreTutor.objects.filter(user=request.user.id)[0]
     alumno = Alumno.objects.filter(tutor = padre.id).values("curso")
     cursos = [a["curso"] for a in alumno]
-    comunicados = Comunicado.objects.filter(Q(curso__icontains = alumno)|Q(curso__in = alumno)).order_by('fecha')
+    comunicados = Comunicado.objects.filter(Q(curso__icontains = alumno)|Q(curso__in = alumno)).order_by('-fecha')
     if queryset:
         comunicados = comunicados.filter(
         Q(titulo__icontains = queryset)|
