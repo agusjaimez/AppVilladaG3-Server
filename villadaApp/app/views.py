@@ -100,7 +100,9 @@ def user_login(request):
     else:
         return render(request, 'login.html', {})
 
-
+class FormView(viewsets.ModelViewSet):
+    queryset=Formulario.objects.all()
+    serializer_class=FormSerializer
 
 class ComunicadoViewSet(viewsets.ModelViewSet):
     queryset = Comunicado.objects.all()
@@ -140,3 +142,4 @@ class UserRecordView(APIView):
             },
             status=status.HTTP_400_BAD_REQUEST
         )
+    

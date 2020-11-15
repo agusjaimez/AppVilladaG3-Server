@@ -8,11 +8,13 @@ router = routers.DefaultRouter()
 router.register(r'comunicados', views.ComunicadoViewSet)
 router.register(r'comunicados_padres', views.ComunicadoViewSet)
 router.register(r'alumno', views.AlumnoViewSet)
+router.register(r'forms', views.FormView, basename='form')
 app_name = 'app'
 # Be careful setting the name to just /login use userlogin instead!
 urlpatterns=[
     url(r'^user_login/$',views.user_login,name='user_login'),
     url(r'^redactar/',views.redactar,name='redactar'),
+    url(r'^forms/',views.FormView,name='forms'),
     url(r'^comunicados/',views.comunicados,name='comunicados'),
     url(r'^usuario_padres/',views_padres.usuario_padres,name='usuario_padres'),
     url(r'^comunicados_padres/',views_padres.comunicados_padres,name='comunicados_padres'),
