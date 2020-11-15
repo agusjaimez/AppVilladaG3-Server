@@ -129,7 +129,7 @@ class UserRecordView(APIView):
         authorization= request.headers['Authorization']
         array_token = authorization.split()
         token = Token.objects.get(key=array_token[1])
-        user = CustomUser.objects.filter(username=token.user)
+        user = User.objects.filter(username=token.user)
         serializer = UserSerializer(user, many=True)
         return Response(serializer.data)
 
