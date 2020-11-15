@@ -5,9 +5,26 @@
     {% csrf_token %}
     
     <div class="col text-center">
-        <br><br><br><br><br>
+        <br><br><br>
         <h3>¿Desea eliminar el comunicado "{{comunicado.titulo}}-({{comunicado.fecha}})"?</h3>
-        <br><br><br><br><br>
+        <br><br>
+        <div class="jumbotron">
+    <h2>{{comunicado.titulo}}</h2>
+    
+    <hr>
+    <br>
+    <a>Fecha: {{comunicado.fecha}}</a>
+    <br>
+    <a>Directivo: {{comunicado.directivo}}</a>
+    <br>
+    <a>Enviado a: {% for curso in comunicado.curso %}
+        {{curso}}
+        {%endfor%}
+    </a>
+
+    <hr>
+    <a>{{comunicado.mensaje}}</a>
+</div>
         <button type="submit" class="btn btn-danger">Eliminar</button>
         <a role="button" class="btn btn-info" href="{% url 'comunicados' %}">Cancelar</a>
 

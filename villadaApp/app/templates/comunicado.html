@@ -2,7 +2,10 @@
 {% block body_block %}
 
 <div class="jumbotron">
+
+    <a class="btn btn-danger float-right " href="{% url 'delete_comunicados' comunicado.id %}">Eliminar</a>
     <h2>{{comunicado.titulo}}</h2>
+    
     <hr>
     <br>
     <a>Fecha: {{comunicado.fecha}}</a>
@@ -17,5 +20,5 @@
     <hr>
     <a>{{comunicado.mensaje}}</a>
 </div>
-
 {% endblock %}
+
