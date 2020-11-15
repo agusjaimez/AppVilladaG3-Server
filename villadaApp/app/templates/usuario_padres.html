@@ -1,14 +1,14 @@
 {% extends 'base_padres.html' %}
-{% block body_block %} 
+{% block body_block %}
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
+
 
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
+
 
 <head>
 	<meta charset="utf-8">
@@ -20,32 +20,15 @@
 
 
 <div class="jumbotron">
-	
-			<!--left col 
-            
-                <h1  >{{ user.get_username }}</h1>
-            -->
+
+			<div style="text-align: right;">
+				<a class="btn btn-light"  href="{% url 'editar_usuario' %}">Editar</a>
+			</div>
 			<div class="text-center">
                 <h1  >{{ user.get_username }}</h1>
 				<img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
-				
-			</div><br>
-<!--
-			<ul class="list-group">
-				<li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
-				<li class="list-group-item text-right"><span class="pull-left"><strong>Shares</strong></span> 125</li>
-				<li class="list-group-item text-right"><span class="pull-left"><strong>Likes</strong></span> 13</li>
-				<li class="list-group-item text-right"><span class="pull-left"><strong>Posts</strong></span> 37</li>
-				<li class="list-group-item text-right"><span class="pull-left"><strong>Followers</strong></span> 78</li>
-			</ul>
 
-			<div class="panel panel-default">
-				<div class="panel-heading">Social Media</div>
-				<div class="panel-body">
-					<i class="fa fa-facebook fa-2x"></i> <i class="fa fa-github fa-2x"></i> <i class="fa fa-twitter fa-2x"></i> <i class="fa fa-pinterest fa-2x"></i> <i class="fa fa-google-plus fa-2x"></i>
-				</div>
-			</div>
--->
+			</div><br>
 		</div>
 		<!--/col-3-->
 		<div  class="text-center">
@@ -57,8 +40,9 @@
 
 			<div class="tab-content">
 				<div class="tab-pane active" id="home">
-						<div class="form-group">
 
+
+						<div class="form-group">
 							<div class="col-xs-6">
 								<label for="first_name"><h4>Nombre : {{ tutor.first_name }}</h4></label>
 								</div>
@@ -82,18 +66,17 @@
 								<label for="info"><h4>Delegado : {{ tutor.delegado }}</h4></label>
 								</div>
 						</div>
-						<div class="form-group">
 
-						</div>
 				</div>
+
 				<!--/tab-pane-->
 				<div class="tab-pane" id="messages">
 
 
 
 							{% for alumno in alumnos %}
-							
-							
+
+
 								<div class="card">
 
 									<div class="row">
@@ -116,5 +99,6 @@
 			</div>
 			<!--/tab-pane-->
 		</div>
+		
 		<!--/tab-content-->
-{% endblock %} 
+{% endblock %}

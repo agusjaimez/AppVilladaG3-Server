@@ -19,7 +19,24 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
         fields = ('username', 'first_name', 'last_name',  'email')
-
+        fields = [
+        'username',
+        'first_name',
+        'last_name',
+        'email',
+        ]
+        labels = {
+        'username': 'Usuario',
+        'first_name': 'Nombre',
+        'last_name': 'Apellido',
+        'email':'Email',
+        }
+        widgets = {
+        'username': forms.TextInput(attrs={'class':'form-control'}),
+        'first_name': forms.TextInput(attrs={'class':'form-control'}),
+        'last_name': forms.TextInput(attrs={'class':'form-control'}),
+        'email':forms.TextInput(attrs={'class':'form-control'}),
+        }
 
 class ComunicadoForm(forms.ModelForm):
     class Meta:

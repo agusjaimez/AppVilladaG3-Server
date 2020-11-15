@@ -1,0 +1,15 @@
+{% extends 'base_padres.html' %}
+{% block body_block %}
+
+<div>
+    <div class="container">
+        <div class="jumbotron" >
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <p><button type="submit" class="btn btn-primary btn-lg btn-block">Aceptar</button></p>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
