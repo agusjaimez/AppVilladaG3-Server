@@ -134,8 +134,12 @@ class UserRecordView(APIView):
         array_token = authorization.split()
         token = Token.objects.get(key=array_token[1])
         user = User.objects.filter(username=token.user)
-        serializer = UserSerializer(user, many=True)
-        return Response(serializer.data)
+        tutor = PadreTutor.objects.get(user=token.user)
+        alumno = Alumno.objects.filter(tutor=tutor.id)
+        serializer_tutor = UserSerializer(user, many=True)
+        serializer_hijo = AlumnooSer(alumno, many=True)
+        alumno_padre = [(serializer_tutor.data)[0], (serializer_hijo.data)[0]]
+        return Response(alumno_padre)
 
     def post(self, request):
         print(request.data)

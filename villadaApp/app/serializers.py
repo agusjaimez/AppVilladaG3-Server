@@ -48,6 +48,23 @@ class UserSerializer(serializers.ModelSerializer):
             )
         ]
 
+class AlumnooSer(serializers.ModelSerializer):
+
+    def create(self, validated_data):
+        alumno = Alumno.objects.create_user()
+        return alumno
+
+    class Meta:
+        model = Alumno
+        fields = (
+            'id',
+            'curso',
+            'first_name',
+            'last_name',
+            'dni',
+            'tutor',
+        )
+
 class FormSerializer(serializers.ModelSerializer):
     class Meta:
         model = Formulario
