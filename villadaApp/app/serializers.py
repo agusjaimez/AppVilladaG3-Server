@@ -68,4 +68,4 @@ class AlumnooSer(serializers.ModelSerializer):
 class FormSerializer(serializers.ModelSerializer):
     class Meta:
         model = Formulario
-        fields = ('alumno', 'descripcion', 'tipo_form', 'dias', 'fecha')
+        fields = ('alumno', 'descripcion', 'tipo_form', 'dias', 'fecha', 'hora')
