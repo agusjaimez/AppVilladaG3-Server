@@ -24,7 +24,7 @@
 				<a class="btn btn-light"  href="{% url 'editar_usuario' %}">Editar</a>
 			</div>
 			<div class="text-center">
-                <h1  >{{ user.get_username }}</h1>
+                <h1>{{ user.get_username }}</h1>
 				<img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" href="javascript:;" class="avatar avatar-xs rounded-circle">
 
 			</div><br>
@@ -32,39 +32,33 @@
 		<!--/col-3-->
 		<div  class="text-center">
 			<ul class="nav nav-tabs" id="myTab" role="tablist">
-				<li class="nav-item"><a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">{{ user.get_username }}</a></li>
+				<li><a  class="nav-link active" aria-controls="home"  id="home-tab" href="#home"   data-toggle="tab"  role="tab" >{{ user.get_username }}</a></li>
 				<li><a class="nav-link active" id="home-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="home" aria-selected="true" >Hijo/s</a></li>
 			</ul>
 
 
 			<div class="tab-content">
 				<div class="tab-pane active" id="home">
+					<div class="hidden-lg hidden-md hidden-sm">&nbsp;</div>
+
 					<div class="row">
-						<div class="col">
-							<div class="col-xs-6">
-								<label style="" for="first_name"><h4>Nombre : {{ tutor.first_name }}</h4></label>
-							</div>
+						<div class="col-md">
+								<label for="first_name"><span style="font-weight: bold;">Nombre:</span> {{ tutor.first_name }}</label>
 						</div>
 
-						<div class="col">
-							<div class="col-xs-6">
-								<label for="last_name"><h4>Apellido : {{ tutor.last_name }}</h4></label>
-							</div>
+						<div class="col-md">
+								<label for="last_name"><span style="font-weight: bold;">Apellido:</span> {{ tutor.last_name }}</label>
 						</div>
-					</div>
-					<div class="row">
-						<div class="col">
-							<div class="col-xs-6">
-								<label for="email"><h4>Email : {{ tutor.email }}</h4></label>
-							</div>
+						<div class="col-md">
+								<label for="email"><span style="font-weight: bold;">Email:</span> {{ tutor.email }}</label>
 						</div>
 
-						<div class="col">
-							<div class="col-xs-6">
-								<label for="info"><h4>Delegado : {{ tutor.delegado }}</h4></label>
-							</div>
+						<div class="col-md">
+								<label for="info"><span style="font-weight: bold;">Delegado:</span> {{ tutor.delegado }}</label>
 						</div>
 					</div>
+					 <div class="hidden-lg hidden-md hidden-sm">&nbsp;</div>
+					 <div class="hidden-lg hidden-md hidden-sm">&nbsp;</div>
 				</div>
 
 				<!--/tab-pane-->
@@ -85,9 +79,9 @@
 										</div>
 
 										<div style="padding-top: 20px;">
-										<label class = 'first_name'for="first_name"><h4>Nombre : {{ alumno.first_name }}</h4></label></br>
-										<label for="last_name"><h4>Apellido : {{ alumno.last_name }}</h4></label></br>
-										<label for="first_name"><h4>Curso : {{ alumno.curso }}</h4></label>
+										<label class = 'first_name'for="first_name"><span style="font-weight: bold;">Nombre:</span> {{ alumno.first_name }}</label></br>
+										<label for="last_name"><span style="font-weight: bold;">Apellido:</span> {{ alumno.last_name }}</label></br>
+										<label for="first_name"><span style="font-weight: bold;">Curso:</span> {{ alumno.curso }}</label>
 										</div>
 										<!--hay mas lugar a la derecha de los datos para q posteriormente se incorporen mas datos y/o funcionalidades-->
 									</div>

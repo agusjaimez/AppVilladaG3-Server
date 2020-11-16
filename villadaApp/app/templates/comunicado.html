@@ -1,14 +1,8 @@
 {% extends "base.html" %}
 {% block body_block %}
 <style>
-    #fecha{
-        font: bold 120% monospace;
-    }
-    #directivo{
-        font: bold 120% monospace;
-    }
-    #curso{
-        font: bold 120% monospace;
+    #info{
+        font-weight: bold;
     }
 </style>
 <br><br>
@@ -16,20 +10,18 @@
 
     <a class="btn btn-danger float-right " href="{% url 'delete_comunicados' comunicado.id %}">Eliminar</a>
     <h2>{{comunicado.titulo}}</h2>
-    
+
     <hr>
-    <a id="directivo">Directivo: {{comunicado.directivo}}</a>
+    <a id="info">Directivo: </a>{{comunicado.directivo}}
     <br>
+    <a id="info">Fecha: </a>{{comunicado.fecha}}
     <br>
-    <a id="fecha">Fecha: {{comunicado.fecha}}</a>
-    <br>
-    <a id="curso">Enviado a: {% for curso in comunicado.curso %}
+    <a id="info">Cursos Notificados: </a>{% for curso in comunicado.curso %}
         {{curso}}
         {%endfor%}
-    </a>
+
 
     <hr>
     <a>{{comunicado.mensaje}}</a>
 </div>
 {% endblock %}
-
