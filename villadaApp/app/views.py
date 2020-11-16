@@ -44,7 +44,7 @@ def redactar(request):
         if form.is_valid():
             form.save()
         else:
-            return HttpResponse("<br><br><br><br><br><br><br><br><h1 style='text-align: center; color: red; font-family: Arial, Helvetica, sans-serif;'>Porfavor complete bien los campos! </h1>")
+            return render(request, "redactar.html",{'form':form})
         return redirect('comunicados')
     else:
         today = date.today()
@@ -60,9 +60,10 @@ def comunicados(request):
     queryset = request.GET.get("buscar")
     comunicados = Comunicado.objects.all().order_by('-fecha')
     if queryset:
-        comunicados = Comunicado.objects.filter(
+        comunicados = comunicados.filter(
         Q(titulo__icontains = queryset)|
-        Q(mensaje__icontains = queryset)
+        Q(mensaje__icontains = queryset)|
+        Q(fecha__icontains = queryset)
         ).distinct()
 
     return render(request ,'comunicados.html', {'comunicados':comunicados})

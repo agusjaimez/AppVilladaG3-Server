@@ -30,18 +30,19 @@ def editar_usuario(request):
     tutor = PadreTutor.objects.filter(user=request.user.id)
 
     if request.method == "POST":
-        new_username = request.POST.get("username")
-        new_first_name = request.POST.get("first_name")
-        new_last_name = request.POST.get("last_name")
-        new_email = request.POST.get("email")
+        form = CustomUserChangeForm(request.POST)
+        if form.is_valid() == False and request.POST.get("username") != request.user.username:
+            return render(request, "editar_usuario.html",{'form':form})
+        else:
+            new_username = request.POST.get("username")
+            new_first_name = request.POST.get("first_name")
+            new_last_name = request.POST.get("last_name")
+            new_email = request.POST.get("email")
 
-        if  new_username != request.user.username and CustomUser.objects.filter(username = new_username).exists():
-            return HttpResponse("<br><br><br><br><br><br><br><br><h1 style='text-align: center; color: red; font-family: Arial, Helvetica, sans-serif;'>El Nombre de Usuario Ya Existe </h1>")
+            usuario.update(username=new_username)
+            tutor.update(first_name=new_first_name, last_name=new_last_name, email=new_email)
+            return redirect('usuario_padres')
 
-
-        usuario.update(username=new_username)
-        tutor.update(first_name=new_first_name, last_name=new_last_name, email=new_email)
-        return redirect('usuario_padres')
     else:
         form = CustomUserChangeForm(initial={'username': usuario[0].username, 'first_name': tutor[0].first_name,'last_name': tutor[0].last_name,'email': tutor[0].email,})
     return render(request, "editar_usuario.html",{'form':form})
