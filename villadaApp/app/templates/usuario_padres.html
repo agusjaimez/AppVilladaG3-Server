@@ -13,7 +13,6 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet"  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
@@ -26,47 +25,46 @@
 			</div>
 			<div class="text-center">
                 <h1  >{{ user.get_username }}</h1>
-				<img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
+				<img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" href="javascript:;" class="avatar avatar-xs rounded-circle">
 
 			</div><br>
 	</div>
 		<!--/col-3-->
 		<div  class="text-center">
-			<ul class="nav nav-tabs">
-				<li class="active"><a data-toggle="tab" href="#home">{{ user.get_username }}</a></li>
-				<li><a data-toggle="tab" href="#messages">Hijo/s</a></li>
+			<ul class="nav nav-tabs" id="myTab" role="tablist">
+				<li class="nav-item"><a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">{{ user.get_username }}</a></li>
+				<li><a class="nav-link active" id="home-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="home" aria-selected="true" >Hijo/s</a></li>
 			</ul>
 
 
 			<div class="tab-content">
 				<div class="tab-pane active" id="home">
-
-
-						<div class="form-group">
+					<div class="row">
+						<div class="col">
 							<div class="col-xs-6">
 								<label for="first_name"><h4>Nombre : {{ tutor.first_name }}</h4></label>
-								</div>
+							</div>
 						</div>
-						<div class="form-group">
 
+						<div class="col">
 							<div class="col-xs-6">
 								<label for="last_name"><h4>Apellido : {{ tutor.last_name }}</h4></label>
-								</div>
+							</div>
 						</div>
-
-						<div class="form-group">
-
+					</div>
+					<div class="row">
+						<div class="col">
 							<div class="col-xs-6">
 								<label for="email"><h4>Email : {{ tutor.email }}</h4></label>
-								</div>
+							</div>
 						</div>
 
-						<div class="form-group">
+						<div class="col">
 							<div class="col-xs-6">
 								<label for="info"><h4>Delegado : {{ tutor.delegado }}</h4></label>
-								</div>
+							</div>
 						</div>
-
+					</div>
 				</div>
 
 				<!--/tab-pane-->
@@ -81,8 +79,11 @@
 
 									<div class="row">
 										<div style=" padding-left: 20px; padding-right:  20px;padding-top: 10px;padding-bottom: 10;padding-bottom: 10px;">
-										<img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar" float:left; width="150" height="150" >
+										<a href="javascript:;" class="avatar avatar-xs rounded-circle">
+										<img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" href="javascript:;" class="avatar avatar-xs rounded-circle" float:left; width="150" height="150" >
+										</a>
 										</div>
+
 										<div style="padding-top: 20px;">
 										<label class = 'first_name'for="first_name"><h4>Nombre : {{ alumno.first_name }}</h4></label></br>
 										<label for="last_name"><h4>Apellido : {{ alumno.last_name }}</h4></label></br>
