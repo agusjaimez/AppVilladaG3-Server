@@ -2,7 +2,7 @@ from django import forms
 from .models import Comunicado
 from django.contrib.admin import widgets
 
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 
 from .models import CustomUser
 
@@ -14,7 +14,7 @@ class CustomUserCreationForm(UserCreationForm):
         fields = ('username', 'first_name', 'last_name',  'email')
 
 
-class CustomUserChangeForm(UserChangeForm):
+class CustomUserChangeForm(forms.ModelForm):
 
     class Meta:
         model = CustomUser
