@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% block body_block %}
-
+<style>
+#fecha {
+        font: bold 90% monospace;
+        }
+</style>
+<br><br>
 <div class="container">
     <body>
         <div class="jumbotron">
@@ -38,7 +43,7 @@
             <div class="comunicados" id="coms">
                 {% for comunicado in comunicados %}
                     <div class="comunicado" >
-                        <h5 ><a href="{% url 'display_comunicado' comunicado.id %}" style="color: #000000">{{comunicado.titulo}} -({{comunicado.fecha}})</a><a class="btn btn-danger float-right " href="{% url 'delete_comunicados' comunicado.id %}">Eliminar</a></h5>
+                        <h5 ><a href="{% url 'display_comunicado' comunicado.id %}" style="color: #000000">{{comunicado.titulo}} - <a id="fecha">({{comunicado.fecha}})</a></a><a class="btn btn-danger float-right " href="{% url 'delete_comunicados' comunicado.id %}">Eliminar</a></h5>
                         <br>
                         <p><span style="display:inline-block;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{comunicado.mensaje}}</span></p>
                         <hr>

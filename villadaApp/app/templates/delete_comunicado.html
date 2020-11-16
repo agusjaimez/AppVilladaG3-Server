@@ -1,6 +1,16 @@
 {% extends "base.html" %}
 {% block body_block %}
-
+<style>
+    #fecha{
+        font: bold 120% monospace;
+    }
+    #directivo{
+        font: bold 120% monospace;
+    }
+    #curso{
+        font: bold 120% monospace;
+    }
+</style>
 <form method="post">
     {% csrf_token %}
     
@@ -13,11 +23,11 @@
     
     <hr>
     <br>
-    <a>Fecha: {{comunicado.fecha}}</a>
+    <a id="directivo">Directivo: {{comunicado.directivo}}</a>
     <br>
-    <a>Directivo: {{comunicado.directivo}}</a>
+    <a id="fecha">Fecha: {{comunicado.fecha}}</a>
     <br>
-    <a>Enviado a: {% for curso in comunicado.curso %}
+    <a id="curso">Enviado a: {% for curso in comunicado.curso %}
         {{curso}}
         {%endfor%}
     </a>

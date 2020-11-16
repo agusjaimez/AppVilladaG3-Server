@@ -1,19 +1,28 @@
 {% extends "base_padres.html" %}
 {% block body_block %}
-
-<div class="container">
-    <body>
-        <div class="jumbotron">
+<style>
+    #gradientegeneral {
+        background-color: #b1bfd8;
+        background-image: linear-gradient(315deg, #b1bfd8 0%, #6782b4 74%);
+        }
+        #fecha {
+        font: bold 90% monospace;
+        }
+    </style>
+<div class="container" >
+    <body >
+    <br><br>
+        <div class="jumbotron" >
             <h1 style="text-align: center">Comunicados</h1>
             <br><br>
             <!--<div class="form-group">
             <label for="demo_overview_minimal">Ordenar por:</label>
             <select id="demo_overview_minimal" class="form-control" data-role="select-dropdown" data-profile="minimal" onchange="Seleccion()">
-              <option value="fecha">Fecha</option>
-              <option value="directivo">Directivo</option>
+            <option value="fecha">Fecha</option>
+            <option value="directivo">Directivo</option>
             </select>
             </div>-->
-            <div class="container">
+            <div class="container" >
                 <div class="row">
                     <div class="col-md-12 search">
                         <form method="get">
@@ -38,12 +47,12 @@
             <div class="comunicados" id="coms">
                 {% for comunicado in comunicados %}
 
-	                <div class="comunicado" >
-	                    <h5 ><a href="{% url 'display_comunicado_padres' comunicado.id %}" style="color: #000000">{{comunicado.titulo}} -({{comunicado.fecha}})</a></h5>
-	                    <br>
-	                    <p><span style="display:inline-block;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{comunicado.mensaje}}</span></p>
-	                    <hr>
-	                </div>
+                    <div class="comunicado" >
+                        <h5 ><a href="{% url 'display_comunicado_padres' comunicado.id %}" style="color: #000000">{{comunicado.titulo}} - <a id="fecha">({{comunicado.fecha}})</a></a></h5>
+                        <br>
+                        <p><span style="display:inline-block;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{comunicado.mensaje}}</span></p>
+                        <hr>
+                    </div>
 
                 {%endfor%}
 

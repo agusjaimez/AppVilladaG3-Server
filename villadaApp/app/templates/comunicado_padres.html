@@ -1,15 +1,25 @@
 {% extends "base_padres.html" %}
 {% block body_block %}
-
+<style>
+    #fecha{
+        font: bold 120% monospace;
+    }
+    #directivo{
+        font: bold 120% monospace;
+    }
+    #curso{
+        font: bold 120% monospace;
+    }
+</style>
+<br><br>
 <div class="jumbotron">
     <h2>{{comunicado.titulo}}</h2>
     <hr>
+    <a id="directivo">Directivo: {{comunicado.directivo}}</a>
     <br>
-    <a>Fecha: {{comunicado.fecha}}</a>
+    <a id="fecha">Fecha: {{comunicado.fecha}}</a>
     <br>
-    <a>Directivo: {{comunicado.directivo}}</a>
-    <br>
-    <a>Enviado a: {% for curso in comunicado.curso %}
+    <a id="curso">Cursos Notifucados: {% for curso in comunicado.curso %}
         {{curso}}
         {%endfor%}
     </a>
