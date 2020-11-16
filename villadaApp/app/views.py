@@ -97,7 +97,7 @@ def user_login(request):
             login(request, user)
             return redirect('comunicados')
         else:
-            return render(request, 'login.html', {})
+            return render(request, 'login.html', {'login_message' : 'El Nombre de Usuario o Contraseña son Incorrectos',})
     else:
         return render(request, 'login.html', {})
 
@@ -153,4 +153,3 @@ class UserRecordView(APIView):
             },
             status=status.HTTP_400_BAD_REQUEST
         )
-    
