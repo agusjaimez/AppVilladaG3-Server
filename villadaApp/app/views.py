@@ -16,7 +16,7 @@ from rest_framework import viewsets
 from .serializers import *
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, filters
 from rest_framework.permissions import IsAdminUser
 #from django.contrib.auth.models import User
 from rest_framework.authtoken.views import *
@@ -101,9 +101,21 @@ def user_login(request):
     else:
         return render(request, 'login.html', {})
 
+class FormView(viewsets.ModelViewSet):
+    queryset=Formulario.objects.all()
+    serializer_class=FormSerializer
 
+class ComunicadoFilterBackend(filters.BaseFilterBackend):
+    def filter_queryset(self, request, queryset, view):
+        authorization= request.headers['Authorization']
+        array_token = authorization.split()
+        token = Token.objects.get(key=array_token[1])
+        tutor = PadreTutor.objects.get(user=token.user)
+        alumno = Alumno.objects.get(tutor=tutor.id)
+        return queryset.filter(curso=[alumno.curso])
 
 class ComunicadoViewSet(viewsets.ModelViewSet):
+    filter_backends = (ComunicadoFilterBackend,)
     queryset = Comunicado.objects.all()
     serializer_class = ComunicadoSer
 
@@ -141,3 +153,4 @@ class UserRecordView(APIView):
             },
             status=status.HTTP_400_BAD_REQUEST
         )
+    
