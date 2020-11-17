@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import CreateView
 from django.contrib.auth import authenticate
-from .models import Comunicado, Curso, PadreTutor, Alumno
+from .models import Comunicado, Curso, PadreTutor, Alumno, Formulario
 from django.template import RequestContext
 from django.shortcuts import redirect
 from .forms import ComunicadoForm
@@ -18,7 +18,6 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, filters
 from rest_framework.permissions import IsAdminUser
-#from django.contrib.auth.models import User
 from rest_framework.authtoken.views import *
 from .models import CustomUser as User
 from datetime import date
@@ -73,6 +72,7 @@ def display_comunicado(request, id_comunicado):
     comunicado = Comunicado.objects.get(id= id_comunicado)
     return render(request, 'comunicado.html',{'comunicado':comunicado})
 
+
 @login_required(login_url="/")
 def ordenar_por_dir(request, order):
     comunicado = Comunicado.objects.all().order_by('directivo')
@@ -100,6 +100,16 @@ def user_login(request):
             return render(request, 'login.html', {'login_message' : 'El Nombre de Usuario o Contraseña son Incorrectos',})
     else:
         return render(request, 'login.html', {})
+
+@login_required(login_url="/")
+def formularios(request):
+    formulario = Formulario.objects.all()
+    return render(request, 'formularios.html',{'formularios':formulario})
+
+@login_required(login_url="/")
+def display_formulario(request, id_formulario):
+    formulario = Formulario.objects.get(id= id_formulario)
+    return render(request, 'formulario.html',{'formulario':formulario})
 
 class FormView(viewsets.ModelViewSet):
     queryset=Formulario.objects.all()

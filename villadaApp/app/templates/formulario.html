@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block body_block %}
+<style>
+    #info{
+        font-weight: bold;
+    }
+</style>
+<br><br>
+<div class="jumbotron">
+
+    <h2>Formulario {{formulario.tipo_form}}</h2>
+
+    <hr>
+    <br>
+    <a id="info">Fecha: </a>{{formulario.fecha}}
+    <br>
+    <a id="info">Alumno: </a>{{formulario.alumno}}
+	<br>
+
+    <hr>
+    <a>{{formulario.descripcion}}</a>
+</div>
+{% endblock %}
