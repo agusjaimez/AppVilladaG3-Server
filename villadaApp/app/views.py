@@ -62,6 +62,7 @@ def comunicados(request):
         comunicados = comunicados.filter(
         Q(titulo__icontains = queryset)|
         Q(mensaje__icontains = queryset)|
+        Q(curso__icontains = queryset)|
         Q(fecha__icontains = queryset)
         ).distinct()
 
@@ -103,8 +104,20 @@ def user_login(request):
 
 @login_required(login_url="/")
 def formularios(request):
-    formulario = Formulario.objects.all()
-    return render(request, 'formularios.html',{'formularios':formulario})
+    if request.user.groups.filter(name='Padres').exists():
+        return redirect('comunicados_padres')
+     
+    queryset = request.GET.get("buscar")
+    formularios = Formulario.objects.all().order_by('-fecha')
+    if queryset:
+        formularios = formularios.filter(
+        Q(tipo_form__icontains = queryset)|
+        Q(alumno__first_name__icontains = queryset)|
+        Q(alumno__last_name__icontains = queryset)|
+        Q(fecha__icontains = queryset)
+        ).distinct()   
+     
+    return render(request, 'formularios.html',{'formularios':formularios})
 
 @login_required(login_url="/")
 def display_formulario(request, id_formulario):
