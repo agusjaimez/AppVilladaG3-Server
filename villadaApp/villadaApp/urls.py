@@ -37,5 +37,7 @@ urlpatterns = [
     path('api-token-auth/', auth_view.obtain_auth_token, name='api-token-auth'),
     path('editar_usuario/', views_padres.editar_usuario, name='editar_usuario'),
     url(r'^password/$', views_padres.change_password, name='change_password'),
+    url(r'^formularios/', views.formularios, name ='formularios'),
+    url(r'^formulario/(?P<id_formulario>\d+)/$',views.display_formulario,name='display_formulario'),
 
 ]

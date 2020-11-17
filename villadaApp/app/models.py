@@ -168,11 +168,11 @@ class Formulario(models.Model):
     def save(self, *args, **kwargs):
         txt=''
         if self.tipo_form=='F1':
-            txt= 'Córdoba, '+str(self.fecha)+'.\n Prof. '+str(Directivo.objects.get(cargo='DA'))+' \nMe dirijo a Ud. a los efectos de solicitarle la justificación de la/s inasistencia/s del Alumno '+str(self.alumno)+' del curso: '+str(self.alumno.curso)+' debido a: '+str(self.descripcion)+' los dias: '+str(self.dias)
+            txt= 'Córdoba, '+str(self.fecha)+'.\n Prof. '+str(Directivo.objects.get(cargo='DG'))+' \nMe dirijo a Ud. a los efectos de solicitarle la justificación de la/s inasistencia/s del Alumno '+str(self.alumno)+' del curso: '+str(self.alumno.curso)+', debido a: '+str(self.descripcion)+' los dias: '+str(self.dias)
         elif self.tipo_form=='F2':
-            txt= 'Córdoba, '+str(self.fecha)+'.\n Prof. '+str(Directivo.objects.get(cargo='DA'))+' \nMe dirijo a Ud. a los efectos de autorizar, en el día de la fecha , al Alumno '+str(self.alumno)+' del curso: '+str(self.alumno.curso)+'a retirarse del Establecimiento por sus propios medios, por ausencia del docente, u otra causa imprevista que pudiere surgir, a las '+ str(self.hora)+'hs. Sin otro particular le saludo atte. '
+            txt= 'Córdoba, '+str(self.fecha)+'.\n Prof. '+str(Directivo.objects.get(cargo='DG'))+' \nMe dirijo a Ud. a los efectos de autorizar, en el día de la fecha , al Alumno '+str(self.alumno)+' del curso: '+str(self.alumno.curso)+'a retirarse del Establecimiento por sus propios medios, por ausencia del docente, u otra causa imprevista que pudiere surgir, a las '+ str(self.hora)+'hs. Sin otro particular le saludo atte. '
         else:
-            txt='Córdoba, '+str(self.fecha)+'.\n Prof. '+str(Directivo.objects.get(cargo='DA'))+' \nMe dirijo a Ud. a los efectos de autorizar, en el día de la fecha , al Alumno '+str(self.alumno)+' del curso: '+str(self.alumno.curso)+'a retirarse del Establecimiento por sus propios medios, a las '+ str(self.hora)+'hs debido a: '+str(self.descripcion)
+            txt='Córdoba, '+str(self.fecha)+'.\n Prof. '+str(Directivo.objects.get(cargo='DG'))+' \nMe dirijo a Ud. a los efectos de autorizar, en el día de la fecha , al Alumno '+str(self.alumno)+' del curso: '+str(self.alumno.curso)+'a retirarse del Establecimiento por sus propios medios, a las '+ str(self.hora)+'hs debido a: '+str(self.descripcion)
         self.descripcion = txt
         super().save(*args, **kwargs)
 
