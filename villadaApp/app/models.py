@@ -49,8 +49,7 @@ class Curso(models.Model):
         septimoB = '7B', ('Septimo B')
         septimoC = '7C', ('Septimo C')
 
-    def __str__(self):
-        return self.title
+
 
 class Directivo(models.Model):
     CARGO_CHOICES = [
@@ -123,9 +122,9 @@ class PadreTutor(models.Model):
 
 @receiver(post_save, sender=CustomUser)
 def create_user_profile(sender, instance, created, **kwargs):
-	
-    my_group, exist = Group.objects.get_or_create(name='Padres') 
-	
+
+    my_group, exist = Group.objects.get_or_create(name='Padres')
+
     if created:
         #print(instance)
         if instance.is_padre:

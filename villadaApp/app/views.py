@@ -106,7 +106,7 @@ def user_login(request):
 def formularios(request):
     if request.user.groups.filter(name='Padres').exists():
         return redirect('comunicados_padres')
-     
+
     queryset = request.GET.get("buscar")
     formularios = Formulario.objects.all().order_by('-fecha')
     if queryset:
@@ -115,8 +115,8 @@ def formularios(request):
         Q(alumno__first_name__icontains = queryset)|
         Q(alumno__last_name__icontains = queryset)|
         Q(fecha__icontains = queryset)
-        ).distinct()   
-     
+        ).distinct()
+
     return render(request, 'formularios.html',{'formularios':formularios})
 
 @login_required(login_url="/")
@@ -134,8 +134,12 @@ class ComunicadoFilterBackend(filters.BaseFilterBackend):
         array_token = authorization.split()
         token = Token.objects.get(key=array_token[1])
         tutor = PadreTutor.objects.get(user=token.user)
-        alumno = Alumno.objects.get(tutor=tutor.id)
-        return queryset.filter(curso=[alumno.curso])
+        #alumno = Alumno.objects.get(tutor=tutor.id)
+        alumno = Alumno.objects.filter(tutor = tutor.id).values("curso")
+        cursos = [a["curso"] for a in alumno]
+        print(alumno)
+        #queryset.filter(Q(curso__icontains = alumno.curso)|Q(curso__in = alumno.curso)).order_by('-fecha')
+        return queryset.filter(Q(curso__icontains = alumno)|Q(curso__in = alumno)).order_by('-fecha')
 
 class ComunicadoViewSet(viewsets.ModelViewSet):
     filter_backends = (ComunicadoFilterBackend,)
