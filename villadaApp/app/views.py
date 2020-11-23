@@ -10,7 +10,7 @@ from django.contrib.auth import authenticate
 from .models import Comunicado, Curso, PadreTutor, Alumno, Formulario
 from django.template import RequestContext
 from django.shortcuts import redirect
-from .forms import ComunicadoForm
+from .forms import ComunicadoForm, AlumnoRegisterForm, CustomUserChangeForm
 from django.db.models import Q
 from rest_framework import viewsets
 from .serializers import *
@@ -21,6 +21,7 @@ from rest_framework.permissions import IsAdminUser
 from rest_framework.authtoken.views import *
 from .models import CustomUser as User
 from datetime import date
+from django.contrib.auth.forms import PasswordChangeForm
 
 @login_required(login_url="/")
 def eliminarComunicados(request, id_comunicado):
@@ -79,6 +80,21 @@ def ordenar_por_dir(request, order):
     comunicado = Comunicado.objects.all().order_by('directivo')
     return render(request, 'comunicado.html',{'comunicados':comunicados})
 
+def user_register(request):
+    if request.method == "GET":
+        return render(request, 'cant_hijos.html')
+    else:
+        try:
+            alumnos = request.POST['hijos']
+            a = [x+1 for x in range(int(alumnos))]
+            user_form = CustomUserChangeForm()
+            alumno_form = AlumnoRegisterForm()
+            return render(request, "register.html",{'user_form':user_form, 'alumno_form':alumno_form, 'alumnos': a})
+        except Exception as e:
+            form1 = CustomUserChangeForm(request.POST)
+            form2 = AlumnoRegisterForm(request.POST)
+
+            print(form2) #Aca hay que ver como obtener la informacion de todos los forms del html, no solamente del ultimo 
 
 @login_required(login_url="/")
 def user_logout(request):
