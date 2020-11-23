@@ -8,6 +8,7 @@ from .models import PadreTutor
 from .models import Formulario
 from .models import SolicitudReunion
 from .models import Comunicado
+from .models import ComunicadoRecibido
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import CustomUserCreationForm, CustomUserChangeForm
@@ -15,7 +16,7 @@ from .models import CustomUser
 from django import forms
 from django.contrib import admin
 from django.contrib.auth import get_user_model
-from django.contrib.admin.widgets import FilteredSelectMultiple    
+from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.contrib.auth.models import Group
 
 
@@ -30,7 +31,7 @@ class GroupAdminForm(forms.ModelForm):
 
     # Add the users field.
     users = forms.ModelMultipleChoiceField(
-         queryset=User.objects.all(), 
+         queryset=User.objects.all(),
          required=False,
          # Use the pretty 'filter_horizontal widget'.
          widget=FilteredSelectMultiple('users', False)
@@ -54,7 +55,7 @@ class GroupAdminForm(forms.ModelForm):
         # Save many-to-many data
         self.save_m2m()
         return instance
-        
+
 admin.site.unregister(Group)
 
 # Create a new Group admin.
@@ -131,3 +132,8 @@ class ComunicadoAdmin(admin.ModelAdmin):
     pass
 
 admin.site.register(Comunicado,ComunicadoAdmin)
+
+class ComunicadoRecibidoAdmin(admin.ModelAdmin):
+    pass
+
+admin.site.register(ComunicadoRecibido,ComunicadoRecibidoAdmin)

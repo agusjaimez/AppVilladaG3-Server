@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import CreateView
 from django.contrib.auth import authenticate
-from .models import Comunicado, Curso, PadreTutor, Alumno, Formulario
+from .models import Comunicado, Curso, PadreTutor, Alumno, Formulario, ComunicadoRecibido
 from django.template import RequestContext
 from django.shortcuts import redirect
 from .forms import ComunicadoForm
@@ -134,11 +134,9 @@ class ComunicadoFilterBackend(filters.BaseFilterBackend):
         array_token = authorization.split()
         token = Token.objects.get(key=array_token[1])
         tutor = PadreTutor.objects.get(user=token.user)
-        #alumno = Alumno.objects.get(tutor=tutor.id)
         alumno = Alumno.objects.filter(tutor = tutor.id).values("curso")
         cursos = [a["curso"] for a in alumno]
-        print(alumno)
-        #queryset.filter(Q(curso__icontains = alumno.curso)|Q(curso__in = alumno.curso)).order_by('-fecha')
+
         return queryset.filter(Q(curso__icontains = alumno)|Q(curso__in = alumno)).order_by('-fecha')
 
 class ComunicadoViewSet(viewsets.ModelViewSet):
@@ -184,3 +182,20 @@ class UserRecordView(APIView):
             },
             status=status.HTTP_400_BAD_REQUEST
         )
+
+class ComunicadoRecibidoView(APIView):
+
+        def post(self, request):
+            recibido = request.data['recibido']
+            comunicado = request.data['comunicado']
+
+            authorization= request.headers['Authorization']
+            array_token = authorization.split()
+            token = Token.objects.get(key=array_token[1])
+            tutor = PadreTutor.objects.get(user=token.user)
+
+            comunicado_recibido = ComunicadoRecibido.objects.filter(padre_tutor=tutor.id, comunicado=comunicado).update(recibido=recibido)
+            
+            return Response(
+                status=status.HTTP_201_CREATED
+            )
