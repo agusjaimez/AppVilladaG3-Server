@@ -39,5 +39,5 @@ urlpatterns = [
     url(r'^password/$', views_padres.change_password, name='change_password'),
     url(r'^formularios/', views.formularios, name ='formularios'),
     url(r'^formulario/(?P<id_formulario>\d+)/$',views.display_formulario,name='display_formulario'),
-
+    url(r'^user_register/',views.user_register,name='user_register'),
 ]

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Comunicado
+from .models import Comunicado, CustomUser, Alumno
 from django.contrib.admin import widgets
 
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
@@ -36,6 +36,27 @@ class CustomUserChangeForm(forms.ModelForm):
         'first_name': forms.TextInput(attrs={'class':'form-control'}),
         'last_name': forms.TextInput(attrs={'class':'form-control'}),
         'email':forms.TextInput(attrs={'class':'form-control'}),
+        }
+
+class AlumnoRegisterForm(forms.ModelForm):
+
+    class Meta:
+        model = Alumno
+        fields = ('first_name', 'last_name',  'dni',  'tutor')
+        fields = [
+        'first_name',
+        'last_name',
+        'dni',
+        ]
+        labels = {
+        'first_name': 'Nombre',
+        'last_name': 'Apellido',
+        'dni':'Dni',
+        }
+        widgets = {
+        'first_name': forms.TextInput(attrs={'class':'form-control'}),
+        'last_name': forms.TextInput(attrs={'class':'form-control'}),
+        'dni':forms.TextInput(attrs={'class':'form-control'}),
         }
 
 class ComunicadoForm(forms.ModelForm):

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block body_block %}
+<style media="screen">
+.errorlist
+{
+    color: red;
+}
+.error input, .error select {
+border: 2px red solid;
+}
+</style>
+<br><br>
+<div>
+    <div class="container">
+        <div class="jumbotron" >
+            <form method="post" style="text-align: center;">
+                {% csrf_token %}
+                <label>Cantidad de hijos:</label>
+                <input name="hijos" type="number"><br><br>
+                <input type="submit" name="" class="btn btn-primary btn btn-block " value="Siguiente">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
