@@ -14,6 +14,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from .managers import CustomUserManager
 from django.contrib.auth.models import Group
+from django.db.models import Q
 
 # Create your models here.
 # Create your models here.
@@ -193,6 +194,40 @@ class Comunicado(models.Model):
     curso = MultiSelectField(choices=Curso.Cursos.choices)
     def __str__(self):
         return (self.titulo)
+
+    def save(self, *args, **kwargs):
+        padres_tutores = PadreTutor.objects.all()
+        super().save(*args, **kwargs)
+        self_cursos = self.curso
+
+        for padre_tutor in padres_tutores:
+            alumno = Alumno.objects.filter(tutor = padre_tutor.id).values("curso")
+            cursos_hijos = [a["curso"] for a in alumno]
+
+            print("ComunicadoCursos")
+            print(self_cursos)
+            print("Cursos de los Hijos")
+            print(cursos_hijos)
+
+            for curso in cursos_hijos:
+                print("Curso array")
+                print(curso)
+                if curso in self_cursos:
+                    print("Match")
+                    ComunicadoRecibido.objects.create(padre_tutor=padre_tutor, comunicado=self)
+                    break
+                else:
+                    print("XD")
+
+
+class ComunicadoRecibido(models.Model):
+    padre_tutor = models.ForeignKey(PadreTutor,on_delete=models.CASCADE, null=True)
+    comunicado = models.ForeignKey(Comunicado, on_delete=models.CASCADE, null=True)
+    recibido = models.BooleanField(default=False)
+
+    def __str__(self):
+        return (str(self.comunicado) + " - " + str(self.padre_tutor)+ " - "+ str(self.id))
+
 '''director general=ramacciotti
 director academico=adriana
 Vicedirectores=ruben y pablo'''

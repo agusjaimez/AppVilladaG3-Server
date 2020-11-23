@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Comunicado, Directivo, PadreTutor, Alumno, Directivo, Formulario
+from .models import Comunicado, Directivo, PadreTutor, Alumno, Directivo, Formulario, ComunicadoRecibido
 #from django.contrib.auth.models import User
 from .models import CustomUser as User
 from rest_framework.validators import UniqueTogetherValidator
@@ -69,3 +69,13 @@ class FormSerializer(serializers.ModelSerializer):
     class Meta:
         model = Formulario
         fields = ('alumno', 'descripcion', 'tipo_form', 'dias', 'fecha', 'hora')
+
+
+class ComunicadoRecibidoSer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ComunicadoRecibido
+        fields = (
+            'id',
+            'recibido'
+        )
