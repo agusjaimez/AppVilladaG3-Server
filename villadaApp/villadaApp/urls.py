@@ -21,6 +21,8 @@ from app_padres import views as views_padres
 from rest_framework.authtoken import views as auth_view
 
 urlpatterns = [
+    path('jet/', include('jet.urls', 'jet')),
+    path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
     path('admin/', admin.site.urls),
     url(r'^app/',include('app.urls')),
     url(r'^$',views.user_login,name='user_login'),
