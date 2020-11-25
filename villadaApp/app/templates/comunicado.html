@@ -10,7 +10,7 @@
         <a class="nav-link active" data-toggle="tab" href="#home">Comunicado</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#menu1">padres que confirmaron lectura</a>
+        <a class="nav-link" data-toggle="tab" href="#menu1">Info</a>
     </li>
 </ul>
 
@@ -32,13 +32,21 @@
             </div>
         </div>
         <div class="tab-pane container fade" id="menu1">
-            <br />
+            <br/>
             <div class="jumbotron">
-            <h2>Confirmacion de padres:</h2>
-            <hr />
-        <div>
-    </div>
-</div>
-</div>
+                <h2>Confirmacion de padres:</h2>
+                <br><br>
+                <h4>Leido por:</h4>
+                <hr>
+                {% for data in vistos %}
+                        - <a><label style="font-weight: bold;">{{data.0.first_name}} {{data.0.last_name}} </label>, tutor de <label style="font-weight: bold;">{% for hijo in data.1 %} {{ hijo.first_name }} {{ hijo.last_name }}({{hijo.curso}})  {%endfor%}</label></a><br>
+                {%endfor%}
+                <br>
+                <h4>Entregado a:</h4>
+                <hr>
+                {% for data in no_vistos %}
+                        - <a><label style="font-weight: bold;">{{data.0.first_name}} {{data.0.last_name}}</label>, tutor de <label style="font-weight: bold;">{% for hijo in data.1 %} {{ hijo.first_name }} {{ hijo.last_name }}({{hijo.curso}})  {%endfor%}</label></a><br>
+                {%endfor%}
+            </div>
+        </div>
 {% endblock %}
-
