@@ -12,8 +12,6 @@ router.register(r'forms', views.FormView, basename='form')
 app_name = 'app'
 # Be careful setting the name to just /login use userlogin instead!
 urlpatterns=[
-    path('jet/', include('jet.urls', 'jet')),
-    path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
     url(r'^user_login/$',views.user_login,name='user_login'),
     url(r'^redactar/',views.redactar,name='redactar'),
     url(r'^forms/',views.FormView,name='forms'),

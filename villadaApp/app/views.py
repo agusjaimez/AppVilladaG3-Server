@@ -71,8 +71,17 @@ def comunicados(request):
 
 @login_required(login_url="/")
 def display_comunicado(request, id_comunicado):
-    comunicado = Comunicado.objects.get(id= id_comunicado)
-    return render(request, 'comunicado.html',{'comunicado':comunicado})
+    comunicado = Comunicado.objects.get(id=id_comunicado)
+    com_recibido = ComunicadoRecibido.objects.filter(comunicado=id_comunicado)
+    vistos = []
+    no_vistos = []
+    for com in com_recibido:
+        hijos = Alumno.objects.filter(tutor=com.padre_tutor.id)
+        if com.recibido == True:
+            vistos.append([com.padre_tutor, hijos])
+        elif com.recibido == False:
+            no_vistos.append([com.padre_tutor, hijos])
+    return render(request, 'comunicado.html',{'comunicado':comunicado, 'vistos':vistos, 'no_vistos':no_vistos})
 
 
 @login_required(login_url="/")
@@ -94,7 +103,7 @@ def user_register(request):
             form1 = CustomUserChangeForm(request.POST)
             form2 = AlumnoRegisterForm(request.POST)
 
-            print(form2) #Aca hay que ver como obtener la informacion de todos los forms del html, no solamente del ultimo 
+            print(form2) #Aca hay que ver como obtener la informacion de todos los forms del html, no solamente del ultimo
 
 @login_required(login_url="/")
 def user_logout(request):
@@ -211,7 +220,7 @@ class ComunicadoRecibidoView(APIView):
             tutor = PadreTutor.objects.get(user=token.user)
 
             comunicado_recibido = ComunicadoRecibido.objects.filter(padre_tutor=tutor.id, comunicado=comunicado).update(recibido=recibido)
-            
+
             return Response(
                 status=status.HTTP_201_CREATED
             )

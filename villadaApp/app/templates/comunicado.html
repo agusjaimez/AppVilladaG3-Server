@@ -1,27 +1,52 @@
-{% extends "base.html" %}
-{% block body_block %}
+{% extends "base.html" %} {% block body_block %}
 <style>
-    #info{
-        font-weight: bold;
-    }
+  #info {
+    font-weight: bold;
+  }
 </style>
-<br><br>
-<div class="jumbotron">
+<br /><br />
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#home">Comunicado</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#menu1">Info</a>
+    </li>
+</ul>
 
-    <a class="btn btn-danger float-right " href="{% url 'delete_comunicados' comunicado.id %}">Eliminar</a>
-    <h2>{{comunicado.titulo}}</h2>
-
-    <hr>
-    <a id="info">Directivo: </a>{{comunicado.directivo}}
-    <br>
-    <a id="info">Fecha: </a>{{comunicado.fecha}}
-    <br>
-    <a id="info">Cursos Notificados: </a>{% for curso in comunicado.curso %}
-        {{curso}}
-        {%endfor%}
-
-
-    <hr>
-    <a>{{comunicado.mensaje}}</a>
-</div>
+<!-- Tab panes -->
+    <div class="tab-content">
+        <div class="tab-pane container active" id="home">
+            <br/>
+            <div class="jumbotron">
+                <a class="btn btn-danger float-right"href="{% url 'delete_comunicados' comunicado.id %}" >Eliminar</a>
+                <h2>{{comunicado.titulo}}</h2>
+                <hr />
+                <a id="info">Directivo: </a>{{comunicado.directivo}}
+                <br />
+                <a id="info">Fecha: </a>{{comunicado.fecha}}
+                <br />
+                <a id="info">Cursos Notificados: </a>{% for curso in comunicado.curso %}{{curso}} {%endfor%}
+                <hr />
+                <a>{{comunicado.mensaje}}</a>
+            </div>
+        </div>
+        <div class="tab-pane container fade" id="menu1">
+            <br/>
+            <div class="jumbotron">
+                <h2>Confirmacion de padres:</h2>
+                <br><br>
+                <h4>Leido por:</h4>
+                <hr>
+                {% for data in vistos %}
+                        - <a><label style="font-weight: bold;">{{data.0.first_name}} {{data.0.last_name}} </label>, tutor de <label style="font-weight: bold;">{% for hijo in data.1 %} {{ hijo.first_name }} {{ hijo.last_name }}({{hijo.curso}})  {%endfor%}</label></a><br>
+                {%endfor%}
+                <br>
+                <h4>Entregado a:</h4>
+                <hr>
+                {% for data in no_vistos %}
+                        - <a><label style="font-weight: bold;">{{data.0.first_name}} {{data.0.last_name}}</label>, tutor de <label style="font-weight: bold;">{% for hijo in data.1 %} {{ hijo.first_name }} {{ hijo.last_name }}({{hijo.curso}})  {%endfor%}</label></a><br>
+                {%endfor%}
+            </div>
+        </div>
 {% endblock %}
