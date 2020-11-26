@@ -99,7 +99,12 @@ class CursoAdmin(admin.ModelAdmin):
 admin.site.register(Curso, CursoAdmin)
 
 class DirectivoAdmin(admin.ModelAdmin):
-    pass
+    model = Directivo
+    list_display = ('id','first_name','last_name','email','username','cargo')
+
+    search_fields = (
+        'first_name','last_name','cargo'
+    )
 
 admin.site.register(Directivo,DirectivoAdmin)
 
@@ -109,27 +114,51 @@ class PreceptorAdmin(admin.ModelAdmin):
 admin.site.register(Preceptor,PreceptorAdmin)
 
 class AlumnoAdmin(admin.ModelAdmin):
-    pass
+    model = Alumno
+    list_display = ('id','first_name','last_name','curso','dni','tutor')
 
+    search_fields = (
+        'first_name','last_name',
+    )
 admin.site.register(Alumno,AlumnoAdmin)
+
 class PadreTutorAdmin(admin.ModelAdmin):
-    pass
+    model = Comunicado
+    list_display = ('id','first_name','last_name','email','user','delegado')
+
+    search_fields = (
+        'first_name','last_name','delegado'
+    )
 admin.site.register(PadreTutor,PadreTutorAdmin)
 
 
-
 class FormularioAdmin(admin.ModelAdmin):
-    pass
+    model = Formulario
+    list_display = ('id','alumno','tipo_form','fecha')
+
+    search_fields = (
+        'alumno','tipo_form','fecha'
+    )
 
 admin.site.register(Formulario,FormularioAdmin)
 
 class SolicitudReunionAdmin(admin.ModelAdmin):
-    pass
+    model = SolicitudReunion
+    list_display = ('id','padre','fecha')
+
+    search_fields = (
+        'padre','fecha'
+    )
 
 admin.site.register(SolicitudReunion,SolicitudReunionAdmin)
 
 class ComunicadoAdmin(admin.ModelAdmin):
-    pass
+    model = Comunicado
+    list_display = ('id','titulo','fecha','directivo','curso')
+
+    search_fields = (
+        'titulo','fecha','directivo','curso'
+    )
 
 admin.site.register(Comunicado,ComunicadoAdmin)
 
