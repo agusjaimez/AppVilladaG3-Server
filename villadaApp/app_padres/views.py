@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import CreateView
 from django.contrib.auth import authenticate
-from app.models import Comunicado, Curso, PadreTutor, Alumno, CustomUser
+from app.models import Comunicado, Curso, PadreTutor, Alumno, CustomUser, ComunicadoRecibido
 from django.template import RequestContext
 from django.shortcuts import redirect
 from app.forms import ComunicadoForm, CustomUserChangeForm
@@ -86,8 +86,18 @@ def comunicados_padres(request):
 def display_comunicado_padres(request, id_comunicado):
     if request.user.groups.filter(name='Padres').exists() == False:
         return render(request, 'login.html', {})
-    comunicado = Comunicado.objects.get(id= id_comunicado)
-    return render(request, 'comunicado_padres.html',{'comunicado':comunicado})
+    padre = PadreTutor.objects.filter(user=request.user.id)[0]
+    comunicado = Comunicado.objects.get(id=id_comunicado)
+    com_recibido = ComunicadoRecibido.objects.filter(comunicado=id_comunicado, padre_tutor=padre.id).values("recibido")
+    if request.method == 'POST':
+        com_recibido.update(recibido=True)
+        return render(request, 'comunicado_padres.html',{'comunicado':comunicado, 'com_recibido':"True", 'message':"True"})
+    else:
+        if com_recibido[0]["recibido"] == True:
+            com_recibido = "True"
+        elif com_recibido[0]["recibido"] == False:
+            com_recibido = "False"
+        return render(request, 'comunicado_padres.html',{'comunicado':comunicado, 'com_recibido':com_recibido})
 
 @login_required(login_url="/")
 def ordenar_por_dir_padres(request, order):

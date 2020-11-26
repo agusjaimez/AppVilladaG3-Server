@@ -38,15 +38,25 @@
                 <br><br>
                 <h4>Leido por:</h4>
                 <hr>
+
                 {% for data in vistos %}
-                        - <a><label style="font-weight: bold;">{{data.0.first_name}} {{data.0.last_name}} </label>, tutor de <label style="font-weight: bold;">{% for hijo in data.1 %} {{ hijo.first_name }} {{ hijo.last_name }}({{hijo.curso}})  {%endfor%}</label></a><br>
+                <div class="card bg-light text-dark">
+                <div class="card-body"><label style="font-weight: bold;">{{data.0.first_name}} {{data.0.last_name}} </label>, tutor de <label style="font-weight: bold;">{% for hijo in data.1 %} {{ hijo.first_name }} {{ hijo.last_name }}({{hijo.curso}})  {%endfor%}</label></div>
+                </div>
                 {%endfor%}
+
                 <br>
                 <h4>Entregado a:</h4>
-                <hr>
+
+                <div class="card">
                 {% for data in no_vistos %}
-                        - <a><label style="font-weight: bold;">{{data.0.first_name}} {{data.0.last_name}}</label>, tutor de <label style="font-weight: bold;">{% for hijo in data.1 %} {{ hijo.first_name }} {{ hijo.last_name }}({{hijo.curso}})  {%endfor%}</label></a><br>
+                <div class="card bg-light text-dark">
+                    <div class="card-body">
+                        <label style="font-weight: bold;">{{data.0.first_name}} {{data.0.last_name}}</label>, tutor de <label style="font-weight: bold;">{% for hijo in data.1 %} {{ hijo.first_name }} {{ hijo.last_name }}({{hijo.curso}})  {%endfor%}</label>
+                    </div>
+                </div>
                 {%endfor%}
+                </div>
             </div>
         </div>
 {% endblock %}

@@ -8,8 +8,15 @@
 
 </style>
 <br><br>
+{% if message == "True" %}
+<div class="card bg-success text-white">
+  <div class="card-body">Se Marco el Comunicado Como Recibido</div>
+</div>
+{% endif %}
 <div class="jumbotron">
+    <div class="col text-center">
     <h2>{{comunicado.titulo}}</h2>
+    </div>
     <hr>
     <a id="info">Directivo: </a>{{comunicado.directivo}}
     <br>
@@ -26,24 +33,15 @@
     <a>{{comunicado.mensaje}}</a>
     <br>
     <hr>
-    
-<label for="myCheck">Checkbox:</label> 
-<input type="checkbox" id="myCheck" onclick="myFunction()">
 
-<p id="text" style="display:none">Checkbox is CHECKED!</p>
-
-<script>
-function myFunction() {
-  var checkBox = document.getElementById("myCheck");
-  var text = document.getElementById("text");
-  if (checkBox.checked == true){
-    text.style.display = "block";
-  } else {
-     text.style.display = "none";
-  }
-}
-</script><br>
-
+<form method="post">
+    {% csrf_token %}
+{% if com_recibido == "True" %}
+{% else %}
+     <div class="col text-center">
+    <p><button type="submit" class="btn btn-primary btn ">Marcar Como Recibido</button></p>
+    </div>
+{% endif %}
 </div>
 
 
