@@ -15,6 +15,7 @@ from django.utils import timezone
 from .managers import CustomUserManager
 from django.contrib.auth.models import Group
 from django.db.models import Q
+from django.core.mail import send_mail
 
 # Create your models here.
 # Create your models here.
@@ -204,20 +205,23 @@ class Comunicado(models.Model):
             alumno = Alumno.objects.filter(tutor = padre_tutor.id).values("curso")
             cursos_hijos = [a["curso"] for a in alumno]
 
-            print("ComunicadoCursos")
-            print(self_cursos)
-            print("Cursos de los Hijos")
-            print(cursos_hijos)
 
             for curso in cursos_hijos:
-                print("Curso array")
-                print(curso)
+
                 if curso in self_cursos:
-                    print("Match")
                     ComunicadoRecibido.objects.create(padre_tutor=padre_tutor, comunicado=self)
+                    print(padre_tutor.email);
+                    send_mail(
+                        'Colegio Comunicados',
+                        'Usted tiene nuevos comunicados para leer',
+                        'emailcolegioejemplo@gmail.com',
+                        [padre_tutor.email],
+                        fail_silently=False,
+                    )
                     break
                 else:
-                    print("XD")
+                    print("Ocurrio un error al crear comunicado recibido")
+
 
 
 class ComunicadoRecibido(models.Model):

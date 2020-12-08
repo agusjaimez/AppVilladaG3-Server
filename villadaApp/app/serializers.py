@@ -13,7 +13,7 @@ class ComunicadoSer(serializers.HyperlinkedModelSerializer):
     directivo = DirectivoSer()
     class Meta:
         model = Comunicado
-        fields = ('titulo', 'fecha', 'curso', 'directivo', 'mensaje')
+        fields = ('id','titulo', 'fecha', 'curso', 'directivo', 'mensaje')
 
 class PadreSer(serializers.HyperlinkedModelSerializer):
     class Meta:
