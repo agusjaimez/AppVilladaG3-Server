@@ -8,7 +8,7 @@
 <br><br>
 <div class="container">
     <body>
-    
+
         <div class="jumbotron">
             <h1 style="text-align: center">Comunicados</h1>
             <br><br>
@@ -44,7 +44,7 @@
             <div class="comunicados" id="coms">
                 {% for comunicado in comunicados %}
                     <div class="comunicado" >
-                        <h5 ><a href="{% url 'display_comunicado' comunicado.id %}" style="color: #000000">{{comunicado.titulo}} - <a id="fecha">({{comunicado.fecha}})</a></a><a class="btn btn-danger float-right " href="{% url 'delete_comunicados' comunicado.id %}">Eliminar</a></h5>
+                        <h5 ><a href="{% url 'display_comunicado' comunicado.id %}" style="color: #000000">{{comunicado.titulo}} - ({{comunicado.fecha}})</a><a class="btn btn-danger float-right " href="{% url 'delete_comunicados' comunicado.id %}">Eliminar</a></h5>
                         <p>
                             <span style="display:inline-block;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">Cursos: {% for curso in comunicado.curso %}{{curso}} {%endfor%}</span><br>
                             <span style="display:inline-block;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{comunicado.mensaje}}</span>

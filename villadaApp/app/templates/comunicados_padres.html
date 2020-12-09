@@ -49,7 +49,7 @@
                 {% for comunicado in comunicados %}
 
                     <div class="comunicado" >
-                        <h5 ><a href="{% url 'display_comunicado_padres' comunicado.id %}" style="color: #000000">{{comunicado.titulo}} - <a id="fecha">({{comunicado.fecha}})</a></a></h5>
+                        <h5 ><a href="{% url 'display_comunicado_padres' comunicado.id %}" style="color: #000000">{{comunicado.titulo}} - ({{comunicado.fecha}})</a></h5>
                         <p>
                             <span style="display:inline-block;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;"><a id="cursos">Cursos:</a> {% for curso in comunicado.curso %}{{curso}} {%endfor%}</span><br>
                             <span style="display:inline-block;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{comunicado.mensaje}}</span>
