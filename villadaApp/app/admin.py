@@ -2,11 +2,9 @@ from django.contrib import admin
 
 from .models import Curso
 from .models import Directivo
-from .models import Preceptor
 from .models import Alumno
 from .models import PadreTutor
 from .models import Formulario
-from .models import SolicitudReunion
 from .models import Comunicado
 from .models import ComunicadoRecibido
 from django.contrib.auth.admin import UserAdmin
@@ -100,7 +98,7 @@ admin.site.register(Curso, CursoAdmin)
 
 class DirectivoAdmin(admin.ModelAdmin):
     model = Directivo
-    list_display = ('id','first_name','last_name','email','username','cargo')
+    list_display = ('id','first_name','last_name','cargo')
 
     search_fields = (
         'first_name','last_name','cargo'
@@ -108,10 +106,6 @@ class DirectivoAdmin(admin.ModelAdmin):
 
 admin.site.register(Directivo,DirectivoAdmin)
 
-class PreceptorAdmin(admin.ModelAdmin):
-    pass
-
-admin.site.register(Preceptor,PreceptorAdmin)
 
 class AlumnoAdmin(admin.ModelAdmin):
     model = Alumno
@@ -124,10 +118,10 @@ admin.site.register(Alumno,AlumnoAdmin)
 
 class PadreTutorAdmin(admin.ModelAdmin):
     model = Comunicado
-    list_display = ('id','first_name','last_name','email','user','delegado')
+    list_display = ('id','first_name','last_name','email','user')
 
     search_fields = (
-        'first_name','last_name','delegado'
+        'first_name','last_name'
     )
 admin.site.register(PadreTutor,PadreTutorAdmin)
 
@@ -142,15 +136,6 @@ class FormularioAdmin(admin.ModelAdmin):
 
 admin.site.register(Formulario,FormularioAdmin)
 
-class SolicitudReunionAdmin(admin.ModelAdmin):
-    model = SolicitudReunion
-    list_display = ('id','padre','fecha')
-
-    search_fields = (
-        'padre','fecha'
-    )
-
-admin.site.register(SolicitudReunion,SolicitudReunionAdmin)
 
 class ComunicadoAdmin(admin.ModelAdmin):
     model = Comunicado

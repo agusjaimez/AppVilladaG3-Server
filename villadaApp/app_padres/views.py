@@ -23,6 +23,8 @@ from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, redirect
+from operator import and_, or_
+from functools import reduce
 
 def change_password(request):
     if request.method == 'POST':
@@ -73,7 +75,7 @@ def comunicados_padres(request):
     padre = PadreTutor.objects.filter(user=request.user.id)[0]
     alumno = Alumno.objects.filter(tutor = padre.id).values("curso")
     cursos = [a["curso"] for a in alumno]
-    comunicados = Comunicado.objects.filter(Q(curso__icontains = alumno)|Q(curso__in = alumno)).order_by('-fecha')
+    comunicados = Comunicado.objects.filter(reduce(or_, [Q(curso__icontains = c) for c in cursos])).order_by('-fecha')
     if queryset:
         comunicados = comunicados.filter(
         Q(titulo__icontains = queryset)|

@@ -147,7 +147,8 @@ def formularios(request):
 @login_required(login_url="/")
 def display_formulario(request, id_formulario):
     formulario = Formulario.objects.get(id= id_formulario)
-    return render(request, 'formulario.html',{'formulario':formulario})
+    tutor = PadreTutor.objects.get(id = formulario.alumno.tutor.id)
+    return render(request, 'formulario.html',{'formulario':formulario, 'tutor':tutor})
 
 class FormView(viewsets.ModelViewSet):
     queryset=Formulario.objects.all()

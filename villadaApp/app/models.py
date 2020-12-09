@@ -61,9 +61,6 @@ class Directivo(models.Model):
 ]
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-    email = models.EmailField(max_length=50)
-    username = models.CharField(max_length=30)
-    password = models.CharField(max_length=30)
     cargo=models.CharField(max_length=2,choices=CARGO_CHOICES, default='VD')
 
     def __str__(self):
@@ -78,19 +75,6 @@ class Directivo(models.Model):
                 super().save(*args, **kwargs)
         else:
             super().save(*args, **kwargs)
-
-
-class Preceptor(models.Model):
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
-    dni = models.CharField(max_length=30)
-    curso = MultiSelectField(choices=Curso.Cursos.choices, null=True, blank=True)
-
-
-
-    def __str__(self):
-        return (self.first_name + " "+ self.last_name)
-
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
@@ -117,7 +101,6 @@ class PadreTutor(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     email = models.EmailField(max_length=50)
-    delegado = models.BooleanField(default=False)
 
     def __str__(self):
         return (self.first_name + " "+ self.last_name)
@@ -169,22 +152,14 @@ class Formulario(models.Model):
     def save(self, *args, **kwargs):
         txt=''
         if self.tipo_form=='F1':
-            txt= 'Córdoba, '+str(self.fecha)+'.\n Prof. '+str(Directivo.objects.get(cargo='DG'))+' \nMe dirijo a Ud. a los efectos de solicitarle la justificación de la/s inasistencia/s del Alumno '+str(self.alumno)+' del curso: '+str(self.alumno.curso)+', debido a: '+str(self.descripcion)+' los dias: '+str(self.dias)
+            txt= 'Córdoba, '+str(self.fecha)+'.\n Prof. '+str(Directivo.objects.get(cargo='DG'))+' \nMe dirijo a Ud. a los efectos de solicitarle la justificación de la/s inasistencia/s del Alumno '+str(self.alumno)+' del curso: '+str(self.alumno.curso)+', debido a: '+str(self.descripcion)+' los dias: '+str(self.dias)+'. Sin otro particular le saludo atte. '
         elif self.tipo_form=='F2':
             txt= 'Córdoba, '+str(self.fecha)+'.\n Prof. '+str(Directivo.objects.get(cargo='DG'))+' \nMe dirijo a Ud. a los efectos de autorizar, en el día de la fecha , al Alumno '+str(self.alumno)+' del curso: '+str(self.alumno.curso)+'a retirarse del Establecimiento por sus propios medios, por ausencia del docente, u otra causa imprevista que pudiere surgir, a las '+ str(self.hora)+'hs. Sin otro particular le saludo atte. '
         else:
-            txt='Córdoba, '+str(self.fecha)+'.\n Prof. '+str(Directivo.objects.get(cargo='DG'))+' \nMe dirijo a Ud. a los efectos de autorizar, en el día de la fecha , al Alumno '+str(self.alumno)+' del curso: '+str(self.alumno.curso)+'a retirarse del Establecimiento por sus propios medios, a las '+ str(self.hora)+'hs debido a: '+str(self.descripcion)
+            txt='Córdoba, '+str(self.fecha)+'.\n Prof. '+str(Directivo.objects.get(cargo='DG'))+' \nMe dirijo a Ud. a los efectos de autorizar, en el día de la fecha , al Alumno '+str(self.alumno)+' del curso: '+str(self.alumno.curso)+'a retirarse del Establecimiento por sus propios medios, a las '+ str(self.hora)+'hs debido a: '+str(self.descripcion)+'. Sin otro particular le saludo atte. '
         self.descripcion = txt
         super().save(*args, **kwargs)
 
-class SolicitudReunion(models.Model):
-    #Se debe agregar un estado de reunion(Aceptada, denegada, Procesando)
-    padre = models.ForeignKey(PadreTutor, on_delete=models.CASCADE)
-    fecha = models.DateField()
-    motivo = models.TextField()
-
-    def __str__(self):
-        return ("Solicitante: "+self.padre)
 
 class Comunicado(models.Model):
     titulo = models.CharField(max_length=500, null=True, blank=True)
